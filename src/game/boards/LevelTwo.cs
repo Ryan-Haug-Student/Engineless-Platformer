@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using EnginelessPhysics.src.game.boards;
-
 namespace EnginelessPhysics.src.game.boards
 {
-    public class LevelOne
+    public class LevelTwo
     {
         private static Tiles._tiles e = Tiles._tiles.AIR;
         private static Tiles._tiles g = Tiles._tiles.GROUND;

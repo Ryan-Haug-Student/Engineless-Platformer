@@ -27,7 +27,8 @@ namespace EnginelessPhysics.src.engine
 
         public virtual void Destroy()
         {
-            MainWindow.canvas.Children.Remove(this.sprite);
+            MainWindow.canvas.Children.Remove(sprite);
+            MainWindow.entities.Remove(this);
         }
     }
 }

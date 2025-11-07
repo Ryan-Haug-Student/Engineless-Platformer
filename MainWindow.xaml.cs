@@ -17,6 +17,7 @@ namespace EnginelessPhysics
     public partial class MainWindow : Window
     {
         public static GameCanvas canvas = new GameCanvas();
+        public static List<Entity> entities = new List<Entity>();
 
         public MainWindow()
         {
