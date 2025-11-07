@@ -25,7 +25,7 @@ namespace EnginelessPhysics
             Title = "Non-Physical Platformer";
 
             //wait to load the map until the window is initialized
-            Loaded += (s, e) => MapLoader.LoadMap(0);
+            Loaded += (s, e) => MapLoader.LoadMap(1);
         }
     }
 

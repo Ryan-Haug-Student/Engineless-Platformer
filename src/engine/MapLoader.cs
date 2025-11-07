@@ -16,8 +16,24 @@ namespace EnginelessPhysics.src.engine
     {
         public static void LoadMap(int toLoad)
         {
-            int cols = LevelOne.board.GetLength(1);
-            int rows = LevelOne.board.GetLength(0);
+            Tiles._tiles[,]? board = null;
+            switch (toLoad)
+            {
+                case 1:
+                    board = LevelOne.board;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+
+                default:
+                    throw new Exception("Level not found");
+            }
+
+
+            int cols = board.GetLength(1);
+            int rows = board.GetLength(0);
 
             //Get a tile scale based on number of rows in maps
             float tileSize = MathF.Ceiling((float)MainWindow.canvas.ActualHeight / rows);
@@ -27,7 +43,7 @@ namespace EnginelessPhysics.src.engine
                 for (int x = 0; x < cols; x++)
                 {
                     //only draw tiles that have content
-                    if (LevelOne.board[y, x] != Tiles._tiles.AIR)
+                    if (board[y, x] != Tiles._tiles.AIR)
                     {
                         float posX = MathF.Round(x * tileSize);
                         float posY = MathF.Round(y * tileSize);
@@ -51,5 +67,7 @@ namespace EnginelessPhysics.src.engine
                 }
             }
         }
+
+
     }
 }
