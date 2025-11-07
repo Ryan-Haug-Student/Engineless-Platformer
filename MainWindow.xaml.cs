@@ -31,6 +31,9 @@ namespace EnginelessPhysics
             Loaded += (s, e) => MapLoader.LoadMap(1);
 
             //... add other entities here
+
+            // Update screens every screen refresh
+            CompositionTarget.Rendering += Update;
         }
         private void Update(object sender, EventArgs e)
         {
@@ -59,6 +62,18 @@ namespace EnginelessPhysics
         {
             base.OnRender(dc);
         }
+
+        //these functions are for passing inputs into player entity
+        //
+        //private void Window_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    .OnKeyDown(e);
+        //}
+
+        //private void Window_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    .OnKeyUp(e);
+        //}
     }
 
 }
