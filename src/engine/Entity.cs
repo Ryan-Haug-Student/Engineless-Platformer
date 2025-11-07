@@ -12,12 +12,15 @@ using EnginelessPhysics;
 
 namespace EnginelessPhysics.src.engine
 {
-    public class Entity
+    public abstract class Entity
     {
         public Vector2 position = Vector2.Zero;
         public Vector2 scale = Vector2.One;
 
         public Shape sprite = new Rectangle { };
+
+        //add update function here so that entities that need to run on update can access
+        public abstract void update(double deltaTime);
 
         public virtual void Draw()
         {

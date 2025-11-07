@@ -1,4 +1,5 @@
-﻿using EnginelessPhysics.src.game.boards;
+﻿using EnginelessPhysics.src.engine.Entities;
+using EnginelessPhysics.src.game.boards;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -55,9 +56,8 @@ namespace EnginelessPhysics.src.engine
                         Brush tileBrush = LevelOne.board[y, x].GetBrush();
 
                         //create a new tile to draw to the screen
-                        Entity tile = new Entity
+                        Tile tile = new Tile(new Vector2(posX, posY))
                         {
-                            position = new Vector2(posX, posY),
                             sprite = new Rectangle
                             {
                                 Fill = tileBrush,

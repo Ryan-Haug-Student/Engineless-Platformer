@@ -19,6 +19,8 @@ namespace EnginelessPhysics
         public static GameCanvas canvas = new GameCanvas();
         public static List<Entity> entities = new List<Entity>();
 
+        public static DateTime lastFrameTime = DateTime.Now;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,8 +29,24 @@ namespace EnginelessPhysics
 
             //wait to load the map until the window is initialized
             Loaded += (s, e) => MapLoader.LoadMap(1);
+
+            //... add other entities here
+        }
+        private void Update(object sender, EventArgs e)
+        {
+            //calculate seconds from last frame (deltatime)
+            double deltaTime = (DateTime.Now - lastFrameTime).TotalMilliseconds / 1000;
+            lastFrameTime = DateTime.Now;
+
+            foreach (Entity entity in entities)
+            {
+                entity.update(deltaTime);
+                entity.Draw();
+            }
         }
     }
+
+ 
 
     public class GameCanvas : Canvas
     {
