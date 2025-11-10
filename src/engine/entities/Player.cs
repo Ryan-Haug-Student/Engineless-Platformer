@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -14,8 +15,13 @@ namespace EnginelessPhysics.src.engine.entities
     public class Player : Entity
     {
         //movement vars
-        public float playerSpeed = 70f;
-        private Vector2 moveDir = new Vector2(1, 0);
+        public float playerSpeed = 250f;
+
+        //input state (key held)
+        private bool leftPressed;
+        private bool rightPressed;
+        private bool upPressed;
+        private bool downPressed;
 
         public Player()
         {
@@ -26,6 +32,7 @@ namespace EnginelessPhysics.src.engine.entities
             sprite.Height = 100;
 
             position = new Vector2(100, 100);
+            previousPosition = position;
         }
 
         public override void update(double deltaTime)
@@ -33,29 +40,54 @@ namespace EnginelessPhysics.src.engine.entities
             Move(deltaTime);
         }
 
-        public override void Draw()
+        // Interpolated render between previousPosition and position
+        public override void Interpolate(double alpha)
         {
-            Canvas.SetLeft(sprite, position.X);
-            Canvas.SetTop(sprite, position.Y);
+            Vector2 renderPos = Vector2.Lerp(previousPosition, position, (float)alpha);
+            Canvas.SetLeft(sprite, renderPos.X);
+            Canvas.SetTop(sprite, renderPos.Y);
         }
 
+        //player input, using bools to keep smooth and continous movement even if opposite key is pressed
         public void OnKeyDown(KeyEventArgs e)
         {
-
+            switch (e.Key)
+            {
+                case Key.W: upPressed = true; break;
+                case Key.A: leftPressed = true; break;
+                case Key.S: downPressed = true; break;
+                case Key.D: rightPressed = true; break;
+            }
         }
 
         public void OnKeyUp(KeyEventArgs e)
         {
-
+            switch (e.Key)
+            {
+                case Key.W: upPressed = false; break;
+                case Key.A: leftPressed = false; break;
+                case Key.S: downPressed = false; break;
+                case Key.D: rightPressed = false; break;
+            }
         }
 
         // ======================================
 
         private void Move(double dt)
         {
-            Vector2 moveDirection = Vector2.Normalize(moveDir);
+            //create a movement vector
+            Vector2 moveDir = Vector2.Zero;
+            if (leftPressed) moveDir.X -= 1;
+            if (rightPressed) moveDir.X += 1;
+            if (upPressed) moveDir.Y -= 1;
+            if (downPressed) moveDir.Y += 1;
 
-            position += moveDirection * playerSpeed * (float)dt;
+            //apply move direction
+            if (moveDir.LengthSquared() > 0)
+            {
+                Vector2 moveDirNormal = Vector2.Normalize(moveDir);
+                position += moveDirNormal * playerSpeed * (float)dt;
+            }
         }
     }
 }
