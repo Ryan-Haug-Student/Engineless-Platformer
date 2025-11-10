@@ -1,13 +1,6 @@
 ﻿using EnginelessPhysics.src.engine.Entities;
 using EnginelessPhysics.src.game.boards;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -35,9 +28,8 @@ namespace EnginelessPhysics.src.engine
                     throw new Exception("Level not found");
             }
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference. wont be null due to thrown exception
             int cols = board.GetLength(1);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
             int rows = board.GetLength(0);
 
             //Get a tile scale based on number of rows in maps

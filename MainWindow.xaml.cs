@@ -1,4 +1,5 @@
 ﻿using EnginelessPhysics.src.engine;
+using EnginelessPhysics.src.engine.entities;
 using System.Diagnostics;
 using System.Numerics;
 using System.Text;
@@ -31,6 +32,11 @@ namespace EnginelessPhysics
             Loaded += (s, e) => MapLoader.LoadMap(1);
 
             //... add other entities here
+            entities.Add(new Player());
+
+            //add all of the entities list to canvas for drawing
+            foreach (Entity entity in entities)
+                canvas.Children.Add(entity.sprite);
 
             // Update screens every screen refresh
             CompositionTarget.Rendering += Update;
@@ -41,11 +47,25 @@ namespace EnginelessPhysics
             double deltaTime = (DateTime.Now - lastFrameTime).TotalMilliseconds / 1000;
             lastFrameTime = DateTime.Now;
 
-            foreach (Entity entity in entities)
+            List<Entity> cloned = new List<Entity>();
+            cloned.AddRange(entities);
+
+            foreach (var entity in cloned)
             {
                 entity.update(deltaTime);
                 entity.Draw();
             }
+        }
+
+        //these functions are for passing inputs into player entity
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+
         }
     }
 
@@ -62,18 +82,6 @@ namespace EnginelessPhysics
         {
             base.OnRender(dc);
         }
-
-        //these functions are for passing inputs into player entity
-        //
-        //private void Window_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    .OnKeyDown(e);
-        //}
-
-        //private void Window_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    .OnKeyUp(e);
-        //}
     }
 
 }

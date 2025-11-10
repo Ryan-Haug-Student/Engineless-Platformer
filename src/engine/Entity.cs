@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 using System.Windows.Media;
 
 using EnginelessPhysics;
+using EnginelessPhysics.src.engine.entities;
 
 namespace EnginelessPhysics.src.engine
 {
