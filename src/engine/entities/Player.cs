@@ -46,6 +46,8 @@ namespace EnginelessPhysics.src.engine.entities
             Vector2 renderPos = Vector2.Lerp(previousPosition, position, (float)alpha);
             Canvas.SetLeft(sprite, renderPos.X);
             Canvas.SetTop(sprite, renderPos.Y);
+
+            MainWindow.MoveCamera(renderPos);
         }
 
         //player input, using bools to keep smooth and continous movement even if opposite key is pressed
