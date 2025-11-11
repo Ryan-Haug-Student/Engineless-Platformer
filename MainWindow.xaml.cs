@@ -125,11 +125,6 @@ namespace EnginelessPhysics
 
     public class GameCanvas : Canvas
     {
-        public GameCanvas() : base()
-        {
-            
-        }
-
         protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
