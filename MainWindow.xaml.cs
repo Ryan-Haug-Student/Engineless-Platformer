@@ -20,13 +20,14 @@ namespace EnginelessPhysics
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
         public static Stopwatch gameTimer = Stopwatch.StartNew();
-        private static double lastFrameTimeMs = 0;
 
         // Fixed-timestep accumulator
         private double accumulator = 0.0;
         private double fixedDt = 1.0 / 60.0; // physics step at 120hz
 
         public Player player;
+
+        private bool physicsRunning = true;
 
         public MainWindow()
         {
@@ -49,46 +50,49 @@ namespace EnginelessPhysics
             foreach (Entity entity in entities)
                 canvas.Children.Add(entity.sprite);
 
-            lastFrameTimeMs = gameTimer.Elapsed.TotalSeconds;
+            StartPhysicsLoop();
 
             // Update screens every screen refresh
-            CompositionTarget.Rendering += Update;
+            CompositionTarget.Rendering += UpdateScreen;
         }
 
-        private void Update(object? sender, EventArgs e)
+        private void UpdateScreen(object? sender, EventArgs e)
         {
-            // delta time in seconds
-            double currentTime = gameTimer.Elapsed.TotalSeconds;
-            double deltaTime = currentTime - lastFrameTimeMs;
-            lastFrameTimeMs = currentTime;
-
-            // avoid huge deltas to stop big jumps
-            if (deltaTime <= 0 || double.IsNaN(deltaTime) || deltaTime > 0.25)
-                deltaTime = 1.0 / 60.0;
-
-            accumulator += deltaTime;
-
-            // save previous physics state once per frame (used for interpolation)
-            foreach (var entity in entities)
-                entity.previousPosition = entity.position;
-
-            // fixed step physics updates
-            while (accumulator >= fixedDt)
-            {
-                foreach (var entity in entities)
-                    entity.update(fixedDt);
-
-                accumulator -= fixedDt;
-            }
-
-            if (deltaTime > 0.05)
-                Trace.WriteLine($"High DT: {deltaTime}");
-
-            // interpolate render between previous and current physics state
-            double alpha = accumulator / fixedDt;
-
+            double alpha = Math.Clamp(accumulator / fixedDt, 0.0, 1.0);
             foreach (var entity in entities)
                 entity.Interpolate(alpha);
+        }
+
+        private void StartPhysicsLoop()
+        {
+            Task.Run(() =>
+            {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                double lastTime = stopwatch.Elapsed.TotalSeconds;
+                double fixedDt = 1.0 / 60.0; // 60 Hz
+
+                while (physicsRunning)
+                {
+                    double currentTime = stopwatch.Elapsed.TotalSeconds;
+                    double deltaTime = currentTime - lastTime;
+                    lastTime = currentTime;
+
+                    accumulator += deltaTime;
+
+                    while (accumulator >= fixedDt)
+                    {
+                        foreach (var entity in entities)
+                        {
+                            entity.previousPosition = entity.position;
+                            entity.update(fixedDt);
+                        }
+
+                        accumulator -= fixedDt;
+                    }
+
+                    Thread.Sleep(1); // avoid high cpu usage
+                }
+            });
         }
 
         //to be called by the player to be able to use interpolated position
@@ -120,6 +124,8 @@ namespace EnginelessPhysics
         {
             gameTimer.Stop(); gameTimer.Reset();
             lastFrameTimeMs = 0;
+
+            physicsRunning = false;
         }
     }
 
