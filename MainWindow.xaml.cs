@@ -123,7 +123,6 @@ namespace EnginelessPhysics
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             gameTimer.Stop(); gameTimer.Reset();
-            lastFrameTimeMs = 0;
 
             physicsRunning = false;
         }
