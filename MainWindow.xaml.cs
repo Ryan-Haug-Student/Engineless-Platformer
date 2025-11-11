@@ -5,12 +5,8 @@ using System.Numerics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace EnginelessPhysics
@@ -26,7 +22,7 @@ namespace EnginelessPhysics
 
         // Fixed-timestep accumulator
         private double accumulator = 0.0;
-        private double fixedDt = 1.0 / 120.0; // physics step at 120Hz (tune as needed)
+        private double fixedDt = 1.0 / 120.0; // physics step at 120hz
 
         public Player player;
 
@@ -43,14 +39,13 @@ namespace EnginelessPhysics
                 Keyboard.Focus(this);
             };
 
-            //other entities go here
+            //physical entities go here
             entities.Add(new Player());
             player = entities.OfType<Player>().First();
 
             foreach (Entity entity in entities)
                 canvas.Children.Add(entity.sprite);
 
-            // initialize last-frame timestamp
             lastFrameTimeMs = gameTimer.ElapsedMilliseconds;
 
             // Update screens every screen refresh
@@ -84,11 +79,15 @@ namespace EnginelessPhysics
 
             // interpolate render between previous and current physics state
             double alpha = accumulator / fixedDt;
+
             foreach (var entity in entities)
                 entity.Interpolate(alpha);
         }
 
-        //these functions are for passing inputs into player entity
+
+
+        //functions from XAML
+        // ==============================================================
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             player.OnKeyDown(e);
@@ -97,6 +96,13 @@ namespace EnginelessPhysics
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
             player.OnKeyUp(e);
+        }
+
+        //when the window closes, reset the timer potentially stopping a memory leak
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            gameTimer.Reset();
+            lastFrameTimeMs = 0;
         }
     }
 
