@@ -14,6 +14,8 @@ namespace EnginelessPhysics
     public partial class MainWindow : Window
     {
         public static GameCanvas canvas = new GameCanvas();
+        TranslateTransform cameraTransform = new TranslateTransform();
+
         public static List<Entity> entities = new List<Entity>();
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
@@ -30,6 +32,7 @@ namespace EnginelessPhysics
         {
             InitializeComponent();
             Content = canvas;
+            canvas.RenderTransform = cameraTransform;
             Title = "Non-Physical Platformer"; 
 
             //wait to load the map until the window is initialized
@@ -82,9 +85,21 @@ namespace EnginelessPhysics
 
             foreach (var entity in entities)
                 entity.Interpolate(alpha);
+
+            //move camera after player has been moved
+            MoveCamera();
         }
 
+        private void MoveCamera()
+        {
+            // create values that track the player in the middle of the screen
+            float camX = player.position.X - ((float)canvas.ActualWidth / 2);
+            float camY = player.position.Y - ((float)canvas.ActualHeight / 2);
 
+            // Apply movement to the transform
+            cameraTransform.X = -camX;
+            cameraTransform.Y = -camY;
+        }
 
         //functions from XAML
         // ==============================================================
@@ -98,10 +113,10 @@ namespace EnginelessPhysics
             player.OnKeyUp(e);
         }
 
-        //when the window closes, reset the timer potentially stopping a memory leak
+        //when the window closes, reset the timer potentially stopping a memory leak / large delta times
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            gameTimer.Reset();
+            gameTimer.Stop(); gameTimer.Reset();
             lastFrameTimeMs = 0;
         }
     }
@@ -112,7 +127,7 @@ namespace EnginelessPhysics
     {
         public GameCanvas() : base()
         {
-            Background = Brushes.LightBlue;
+            
         }
 
         protected override void OnRender(DrawingContext dc)

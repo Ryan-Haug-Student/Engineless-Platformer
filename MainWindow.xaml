@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnginelessPhysics"
         mc:Ignorable="d"
-        Title="MainWindow" Height="540" Width="960" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp"
+        Title="MainWindow" Height="540" Width="960" Background="LightBlue"
+        KeyDown="Window_KeyDown" KeyUp="Window_KeyUp"
         Closing="Window_Closing"
         >
     <Grid>
