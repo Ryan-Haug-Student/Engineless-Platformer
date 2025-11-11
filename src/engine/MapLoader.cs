@@ -59,6 +59,7 @@ namespace EnginelessPhysics.src.engine
                         };
 
                         MainWindow.canvas.Children.Add(tile.sprite);
+                        MainWindow.staticEntities.Add(tile);
                         tile.Draw();
                     }
                 }

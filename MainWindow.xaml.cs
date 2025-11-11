@@ -17,9 +17,10 @@ namespace EnginelessPhysics
         private static TranslateTransform cameraTransform = new TranslateTransform();
 
         public static List<Entity> entities = new List<Entity>();
+        public static List<Entity> staticEntities = new List<Entity>();
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
-        public static Stopwatch gameTimer = Stopwatch.StartNew();
+        public static Stopwatch? gameTimer;
 
         // Fixed-timestep accumulator
         private double accumulator = 0.0;
@@ -67,13 +68,13 @@ namespace EnginelessPhysics
         {
             Task.Run(() =>
             {
-                Stopwatch stopwatch = Stopwatch.StartNew();
-                double lastTime = stopwatch.Elapsed.TotalSeconds;
+                gameTimer = Stopwatch.StartNew();
+                double lastTime = gameTimer.Elapsed.TotalSeconds;
                 double fixedDt = 1.0 / 60.0; // 60 Hz
 
                 while (physicsRunning)
                 {
-                    double currentTime = stopwatch.Elapsed.TotalSeconds;
+                    double currentTime = gameTimer.Elapsed.TotalSeconds;
                     double deltaTime = currentTime - lastTime;
                     lastTime = currentTime;
 
