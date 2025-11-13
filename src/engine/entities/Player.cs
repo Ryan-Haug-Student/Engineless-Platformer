@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
@@ -37,6 +38,8 @@ namespace EnginelessPhysics.src.engine.entities
 
         public override void update(double deltaTime)
         {
+            base.update(deltaTime);
+
             Move(deltaTime);
         }
 
@@ -88,7 +91,7 @@ namespace EnginelessPhysics.src.engine.entities
             if (moveDir.LengthSquared() > 0)
             {
                 Vector2 moveDirNormal = Vector2.Normalize(moveDir);
-                position += moveDirNormal * playerSpeed * (float)dt;
+                velocity += moveDirNormal * playerSpeed * (float)dt;
             }
         }
     }
