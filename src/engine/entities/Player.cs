@@ -28,8 +28,8 @@ namespace EnginelessPhysics.src.engine.entities
             sprite = new Rectangle();
             sprite.Fill = Brushes.White;
 
-            sprite.Width = 50;
-            sprite.Height = 100;
+            sprite.Width = 35;
+            sprite.Height = 70;
 
             position = new Vector2(100, 100);
             previousPosition = position;

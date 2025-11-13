@@ -46,7 +46,9 @@ namespace EnginelessPhysics
 
             //physical entities go here
             entities.Add(new Player());
+
             player = entities.OfType<Player>().First();
+            Panel.SetZIndex(player.sprite, 1);
 
             foreach (Entity entity in entities)
                 canvas.Children.Add(entity.sprite);

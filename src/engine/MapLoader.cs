@@ -1,8 +1,13 @@
 ﻿using EnginelessPhysics.src.engine.Entities;
 using EnginelessPhysics.src.game.boards;
+using System.Diagnostics;
 using System.Numerics;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace EnginelessPhysics.src.engine
 {
@@ -10,8 +15,13 @@ namespace EnginelessPhysics.src.engine
     {
         public static void LoadMap(int toLoad)
         {
+            int windowHeight =(int) MainWindow.canvas.ActualHeight;
+            int windowWidth = (int) MainWindow.canvas.ActualWidth;
+
             //get the correct board to load
             Tiles._tiles[,]? board = null;
+            float tileSize = MathF.Ceiling(windowHeight / 15);
+
             switch (toLoad)
             {
                 case 1:
@@ -32,8 +42,16 @@ namespace EnginelessPhysics.src.engine
             int cols = board.GetLength(1);
             int rows = board.GetLength(0);
 
-            //Get a tile scale based on number of rows in maps
-            float tileSize = MathF.Ceiling((float)MainWindow.canvas.ActualHeight / rows);
+            WriteableBitmap bitmap = new WriteableBitmap(
+                cols * (int)tileSize,   //width
+                rows * (int)tileSize,   //height
+                96, 96,                 //dpi
+                PixelFormats.Bgr32,     //pixel format, also color palette
+                null                    //would be color palette
+                );
+
+            bitmap.Lock();
+            bitmap.FillRectangle(0, 0, (int)bitmap.Width, (int)bitmap.Height, Colors.LightBlue);
 
             for (int y = 0; y < rows; y++)
             {
@@ -45,27 +63,29 @@ namespace EnginelessPhysics.src.engine
                         //round positions to ensure that there is no gaps between tiles
                         float posX = MathF.Round(x * tileSize);
                         float posY = MathF.Round(y * tileSize);
-                        Brush tileBrush = LevelOne.board[y, x].GetBrush();
+                        Color tileColor = LevelOne.board[y, x].GetBrush();
 
-                        //create a new tile to draw to the screen
-                        Tile tile = new Tile(new Vector2(posX, posY))
-                        {
-                            sprite = new Rectangle
-                            {
-                                Fill = tileBrush,
-                                Width = MathF.Round(tileSize),
-                                Height =MathF.Round(tileSize)
-                            }
-                        };
+                        int x1 = (int)MathF.Floor(posX - (tileSize / 2));
+                        int x2 = (int)MathF.Floor(posX + (tileSize / 2));
 
-                        MainWindow.canvas.Children.Add(tile.sprite);
-                        MainWindow.staticEntities.Add(tile);
-                        tile.Draw();
+                        int y1 = (int)MathF.Floor(posY - (tileSize / 2));
+                        int y2 = (int)MathF.Floor(posY + (tileSize / 2));
+
+                        bitmap.FillRectangle(x1, y1, x2, y2, tileColor);
                     }
                 }
             }
+
+            bitmap.Unlock();
+
+            //create an image out of the bitmap and draw it to the canvas
+            Image BMImage = new Image();
+            BMImage.Source = bitmap;
+
+            MainWindow.canvas.Children.Add(BMImage);
+
+            Canvas.SetLeft(BMImage, 0);
+            Canvas.SetTop(BMImage, 0);
         }
-
-
     }
 }

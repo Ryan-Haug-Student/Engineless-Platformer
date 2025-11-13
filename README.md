@@ -10,6 +10,8 @@ For non static objects, instead of simply drawing from top and left, we calculat
 > ## Map Creation and Loading
 For map creation we use a 2d array of tiles, each tile type is represented by a enumerated tile type, with a represented brush or image etc. For loading the map there is just one function, maploader.loadmap(int toload), calling this will retreive the 
 respective map from the correct file, and loop through each axis of the array to create new tile entities.
+The map loader is using the NuGet package "WriteableBitmapEX", a simple opensource library which adds functions to bitmaps so I dont need to draw exact pixels
+Im using this primarily in maploader.cs to create a new image of the map for preformance
 
 > ## Input Handling
 To handle input, on the mainwindow.xaml file I added onkeydown and onkeyup events which on the mainwindow.cs file will call their respective functions. From there we pass the keyEventArgs into functions where neccesary, currently only the player.

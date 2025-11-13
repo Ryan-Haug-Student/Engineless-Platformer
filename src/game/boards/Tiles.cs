@@ -20,17 +20,17 @@ namespace EnginelessPhysics.src.game.boards
             FIRE
         }
 
-        public static Brush GetBrush(this _tiles tile)
+        public static Color GetBrush(this _tiles tile)
         {
             switch (tile)
             {
                 case _tiles.GROUND:
-                    return Brushes.DarkGreen;
+                    return Colors.Green;
                 case _tiles.FIRE:
-                    return Brushes.Red;
+                    return Colors.Red;
 
                 default:
-                    return Brushes.Transparent;
+                    return Colors.Transparent;
             }
         }
     }
