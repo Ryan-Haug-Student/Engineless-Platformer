@@ -20,7 +20,7 @@ namespace EnginelessPhysics.src.engine
 
             //get the correct board to load
             Tiles._tiles[,]? board = null;
-            float tileSize = MathF.Ceiling(windowHeight / 15);
+            float tileSize = MathF.Ceiling(windowHeight / 12);
 
             switch (toLoad)
             {
@@ -51,6 +51,7 @@ namespace EnginelessPhysics.src.engine
                 );
 
             bitmap.Lock();
+            //make the background solid light blue
             bitmap.FillRectangle(0, 0, (int)bitmap.Width, (int)bitmap.Height, Colors.LightBlue);
 
             for (int y = 0; y < rows; y++)
@@ -65,11 +66,11 @@ namespace EnginelessPhysics.src.engine
                         float posY = MathF.Round(y * tileSize);
                         Color tileColor = LevelOne.board[y, x].GetBrush();
 
-                        int x1 = (int)MathF.Floor(posX - (tileSize / 2));
-                        int x2 = (int)MathF.Floor(posX + (tileSize / 2));
+                        int x1 = (int) posX;
+                        int x2 = (int) (posX + tileSize);
 
-                        int y1 = (int)MathF.Floor(posY - (tileSize / 2));
-                        int y2 = (int)MathF.Floor(posY + (tileSize / 2));
+                        int y1 = (int) posY;
+                        int y2 = (int) (posY + tileSize);
 
                         bitmap.FillRectangle(x1, y1, x2, y2, tileColor);
                     }
