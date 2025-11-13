@@ -16,7 +16,7 @@ namespace EnginelessPhysics
         public static GameCanvas canvas = new GameCanvas();
         private static TranslateTransform cameraTransform = new TranslateTransform();
 
-        public static List<Entity> entities = new List<Entity>();
+        public static List<PhysicalEntity> entities = new List<PhysicalEntity>();
         public static List<Entity> staticEntities = new List<Entity>();
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
@@ -50,7 +50,7 @@ namespace EnginelessPhysics
             player = entities.OfType<Player>().First();
             Panel.SetZIndex(player.sprite, 1);
 
-            foreach (Entity entity in entities)
+            foreach (PhysicalEntity entity in entities)
                 canvas.Children.Add(entity.sprite);
 
             StartPhysicsLoop();

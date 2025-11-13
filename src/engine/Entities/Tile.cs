@@ -17,9 +17,6 @@ namespace EnginelessPhysics.src.engine.Entities
             this.position = position;
         }
 
-        public override void update(double deltaTime)
-        {
-            
-        }
+        public override void update(double deltaTime) {}
     }
 }

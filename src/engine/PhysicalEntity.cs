@@ -6,18 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Shapes;
-using System.Windows.Media;
-
-using EnginelessPhysics;
-using EnginelessPhysics.src.engine.entities;
 
 namespace EnginelessPhysics.src.engine
 {
-    public abstract class Entity
+    public abstract class PhysicalEntity
     {
         public Vector2 position = Vector2.Zero;
         public Vector2 previousPosition = Vector2.Zero;
         public Vector2 scale = Vector2.One;
+
+        //physics vars
+        public Vector2 velocity = Vector2.Zero;
+        public Vector2 gravity = new Vector2 (0, 9.81f);
+        public float gravityScale = 1.0f;
 
         public Shape sprite = new Rectangle { };
 
@@ -42,7 +43,7 @@ namespace EnginelessPhysics.src.engine
         public virtual void Destroy()
         {
             MainWindow.canvas.Children.Remove(sprite);
-            MainWindow.staticEntities.Remove(this);
+            MainWindow.entities.Remove(this);
         }
     }
 }

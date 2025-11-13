@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 
 namespace EnginelessPhysics.src.engine.entities
 {
-    public class Player : Entity
+    public class Player : PhysicalEntity
     {
         //movement vars
         public float playerSpeed = 250f;
