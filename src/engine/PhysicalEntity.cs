@@ -33,6 +33,7 @@ namespace EnginelessPhysics.src.engine
             velocity.X *= linearFriction;
             velocity.Y *= linearFriction + ((1 - linearFriction)/2);
 
+            //check for collisions with **static** entities
             Vector2 futurePos = position + velocity * (float)deltaTime;
             foreach (var entity in WorldData.staticEntities)
             {
@@ -52,6 +53,10 @@ namespace EnginelessPhysics.src.engine
                     futurePos.Y + scale.Y > entity.position.Y
                     ) { velocity.Y = 0; }
             }
+
+            //stop object completely if value is too small to prevent small odd values
+            if (0 < velocity.X && velocity.X < 1)
+                velocity.X = 0;
 
             Trace.WriteLine(velocity);
             position += velocity * (float)deltaTime;
