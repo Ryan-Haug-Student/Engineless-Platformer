@@ -10,29 +10,31 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Shell;
 
 namespace EnginelessPhysics.src.engine.entities
 {
     public class Player : PhysicalEntity
     {
         //movement vars
-        public float playerSpeed = 250f;
+        public float playerSpeed = 900f;
+        public float jumpForce = 37f;
 
         //input state (key held)
         private bool leftPressed;
         private bool rightPressed;
-        private bool upPressed;
-        private bool downPressed;
+        private bool jumpActionPressed;
 
-        public Player()
+        public Player(Vector2 Pos, Vector2 Scale)
         {
             sprite = new Rectangle();
             sprite.Fill = Brushes.White;
 
-            sprite.Width = 35;
-            sprite.Height = 70;
+            scale = Scale;
+            sprite.Width = scale.X;
+            sprite.Height = scale.Y;
 
-            position = new Vector2(100, 100);
+            position = Pos;
             previousPosition = position;
         }
 
@@ -58,9 +60,8 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.W: upPressed = true; break;
+                case Key.Space: jumpActionPressed = true; break;
                 case Key.A: leftPressed = true; break;
-                case Key.S: downPressed = true; break;
                 case Key.D: rightPressed = true; break;
             }
         }
@@ -69,9 +70,7 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.W: upPressed = false; break;
                 case Key.A: leftPressed = false; break;
-                case Key.S: downPressed = false; break;
                 case Key.D: rightPressed = false; break;
             }
         }
@@ -84,14 +83,18 @@ namespace EnginelessPhysics.src.engine.entities
             Vector2 moveDir = Vector2.Zero;
             if (leftPressed) moveDir.X -= 1;
             if (rightPressed) moveDir.X += 1;
-            if (upPressed) moveDir.Y -= 1;
-            if (downPressed) moveDir.Y += 1;
 
             //apply move direction
-            if (moveDir.LengthSquared() > 0)
+            if (moveDir.X != 0)
             {
                 Vector2 moveDirNormal = Vector2.Normalize(moveDir);
                 velocity += moveDirNormal * playerSpeed * (float)dt;
+            }
+
+            if (jumpActionPressed)
+            {
+                velocity.Y = -jumpForce * 1000 * (float)dt;
+                jumpActionPressed = false;
             }
         }
     }

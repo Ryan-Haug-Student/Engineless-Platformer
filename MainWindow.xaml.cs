@@ -1,5 +1,6 @@
 ﻿using EnginelessPhysics.src.engine;
 using EnginelessPhysics.src.engine.entities;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 using System.Text;
@@ -11,13 +12,17 @@ using System.Windows.Shapes;
 
 namespace EnginelessPhysics
 {
+    //worldData class is usesd for accessing data accross threads
+    public static class WorldData
+    {
+        public static List<PhysicalEntity> entities = new List<PhysicalEntity>();
+        public static List<Entity> staticEntities = new List<Entity>();
+    }
+
     public partial class MainWindow : Window
     {
         public static GameCanvas canvas = new GameCanvas();
         private static TranslateTransform cameraTransform = new TranslateTransform();
-
-        public static List<PhysicalEntity> entities = new List<PhysicalEntity>();
-        public static List<Entity> staticEntities = new List<Entity>();
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
         public static Stopwatch? gameTimer;
@@ -45,12 +50,15 @@ namespace EnginelessPhysics
             };
 
             //physical entities go here
-            entities.Add(new Player());
+            WorldData.entities.Add(new Player(
+                new Vector2(50, 100),  //starting pos
+                new Vector2(35, 70))); //scale
 
-            player = entities.OfType<Player>().First();
+            //add player reference and move player to top of screen
+            player = WorldData.entities.OfType<Player>().First();
             Panel.SetZIndex(player.sprite, 1);
 
-            foreach (PhysicalEntity entity in entities)
+            foreach (PhysicalEntity entity in WorldData.entities)
                 canvas.Children.Add(entity.sprite);
 
             StartPhysicsLoop();
@@ -62,7 +70,7 @@ namespace EnginelessPhysics
         private void UpdateScreen(object? sender, EventArgs e)
         {
             double alpha = Math.Clamp(accumulator / fixedDt, 0.0, 1.0);
-            foreach (var entity in entities)
+            foreach (var entity in WorldData.entities)
                 entity.Interpolate(alpha);
         }
 
@@ -84,7 +92,7 @@ namespace EnginelessPhysics
 
                     while (accumulator >= fixedDt)
                     {
-                        foreach (var entity in entities)
+                        foreach (var entity in WorldData.entities)
                         {
                             entity.previousPosition = entity.position;
                             entity.update(fixedDt);
@@ -105,7 +113,6 @@ namespace EnginelessPhysics
             float camX = pos.X - ((float)canvas.ActualWidth / 2);
             float camY = pos.Y - ((float)canvas.ActualHeight / 2);
 
-            // Apply movement to the transform
             cameraTransform.X = -camX;
             cameraTransform.Y = -camY;
         }

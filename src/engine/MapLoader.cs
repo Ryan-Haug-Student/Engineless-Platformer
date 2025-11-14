@@ -1,6 +1,7 @@
 ﻿using EnginelessPhysics.src.engine.Entities;
 using EnginelessPhysics.src.game.boards;
 using System.Diagnostics;
+using System.Globalization;
 using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
@@ -73,6 +74,9 @@ namespace EnginelessPhysics.src.engine
                         int y2 = (int) (posY + tileSize);
 
                         bitmap.FillRectangle(x1, y1, x2, y2, tileColor);
+
+                        //add static entities for colisions
+                        WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
                     }
                 }
             }

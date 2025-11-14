@@ -12,9 +12,11 @@ namespace EnginelessPhysics.src.engine.Entities
 {
     public class Tile : Entity
     {
-        public Tile(Vector2 position)
+        public Tile(Vector2 position, float scale)
         {
             this.position = position;
+            this.scale.X = scale;
+            this.scale.Y = scale;
         }
 
         public override void update(double deltaTime) {}

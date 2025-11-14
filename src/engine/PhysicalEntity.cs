@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
@@ -18,25 +19,42 @@ namespace EnginelessPhysics.src.engine
 
         //physics vars
         public Vector2 velocity = Vector2.Zero;
-        public Vector2 gravity = new Vector2 (0, 98.1f);
-        public float gravityScale = 1.0f;
+        public Vector2 gravity = new Vector2 (0, 900f);
 
-        public float linearFriction = 0.02f;
+        public float linearFriction = 0.925f;
 
         public Shape sprite = new Rectangle { };
 
         //add update function here so that entities that need to run on update can access
         public virtual void update(double deltaTime)
         {
-            position += velocity * (float)deltaTime;
+            //apply gravity and friction (vertical friction is havled)
             velocity += gravity * (float)deltaTime;
+            velocity.X *= linearFriction;
+            velocity.Y *= linearFriction + ((1 - linearFriction)/2);
 
-            if (velocity.X != 0)
-                velocity.X = float.Lerp(velocity.X, 0, linearFriction);
-            if (velocity.Y != 0)
-                velocity.Y = float.Lerp(velocity.Y, 0, linearFriction / 2);
+            Vector2 futurePos = position + velocity * (float)deltaTime;
+            foreach (var entity in WorldData.staticEntities)
+            {
+                //hoizontal colisions
+                if (
+                    futurePos.X < entity.position.X + entity.scale.X &&
+                    futurePos.X + scale.X > entity.position.X && 
+                    position.Y < entity.position.Y + entity.scale.Y &&
+                    position.Y + scale.Y > entity.position.Y
+                    ) { velocity.X = 0; }
+
+                //vertical collisions
+                if (
+                    position.X < entity.position.X + entity.scale.X &&
+                    position.X + scale.X > entity.position.X &&
+                    futurePos.Y < entity.position.Y + entity.scale.Y &&
+                    futurePos.Y + scale.Y > entity.position.Y
+                    ) { velocity.Y = 0; }
+            }
 
             Trace.WriteLine(velocity);
+            position += velocity * (float)deltaTime;
         }
 
         // interpolate is a dynamic draw for smooth movement
@@ -47,11 +65,10 @@ namespace EnginelessPhysics.src.engine
             Canvas.SetTop(sprite, renderPos.Y);
         }
 
-
         public virtual void Destroy()
         {
             MainWindow.canvas.Children.Remove(sprite);
-            MainWindow.entities.Remove(this);
+            WorldData.entities.Remove(this);
         }
     }
 }
