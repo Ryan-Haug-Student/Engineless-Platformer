@@ -47,12 +47,6 @@ namespace EnginelessPhysics.src.engine
             Canvas.SetTop(sprite, renderPos.Y);
         }
 
-        //static 
-        public virtual void Draw()
-        {
-            Canvas.SetLeft(sprite, position.X);
-            Canvas.SetTop(sprite, position.Y);
-        }
 
         public virtual void Destroy()
         {
