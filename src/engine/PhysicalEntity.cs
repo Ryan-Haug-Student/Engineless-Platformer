@@ -90,14 +90,20 @@ namespace EnginelessPhysics.src.engine
             foreach (var e in WorldData.entities)
             {
                 if (
+                    e != this && 
+
                     futurePos.X < e.position.X + e.scale.X &&
                     futurePos.X + scale.X > e.position.X &&
                     futurePos.Y < e.position.Y + e.scale.Y &&
                     futurePos.Y + scale.Y > e.position.Y
-                    )
-                {//collision detected
-                }
+                    ) // run on collision enter for both objects
+                { OnCollisionEnter(e); e.OnCollisionEnter(this); }
             }
+        }
+
+        public virtual void OnCollisionEnter(PhysicalEntity collider)
+        {
+            throw new Exception("OOPS YOU DIE");
         }
 
         // interpolate is a dynamic draw for smooth movement
