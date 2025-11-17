@@ -17,6 +17,8 @@ namespace EnginelessPhysics
     {
         public static List<PhysicalEntity> entities = new List<PhysicalEntity>();
         public static List<Entity> staticEntities = new List<Entity>();
+
+        public static List<Vector2> grapplePoints = new List<Vector2>();
     }
 
     public partial class MainWindow : Window

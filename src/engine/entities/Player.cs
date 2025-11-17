@@ -20,10 +20,14 @@ namespace EnginelessPhysics.src.engine.entities
         public float playerSpeed = 160f;
         public float jumpForce = 55f;
 
+        public float grappleDistance = 150f;
+        private bool targeted = false;
+        private Vector2 targetedPoint = Vector2.Zero;
+
         //input state (key held)
         private bool leftPressed;
         private bool rightPressed;
-        private bool jumpActionPressed;
+        private bool jumpPressed;
 
         public Player(Vector2 Pos, Vector2 Scale)
         {
@@ -43,6 +47,7 @@ namespace EnginelessPhysics.src.engine.entities
             base.update(deltaTime);
 
             Move(deltaTime);
+            CheckForGrapple();
         }
 
         // Interpolated render between previousPosition and position
@@ -60,9 +65,12 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.Space: jumpActionPressed = true; break;
+                case Key.Space: jumpPressed = true; break;
+
                 case Key.A: leftPressed = true; break;
                 case Key.D: rightPressed = true; break;
+
+                case Key.R: Reset(); break;
             }
         }
 
@@ -70,6 +78,8 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
+                case Key.Space: jumpPressed = false; break;
+
                 case Key.A: leftPressed = false; break;
                 case Key.D: rightPressed = false; break;
             }
@@ -91,11 +101,36 @@ namespace EnginelessPhysics.src.engine.entities
                 velocity += moveDirNormal * playerSpeed * 10 * (float)dt;
             }
 
-            if (jumpActionPressed)
+            if (jumpPressed && grounded)
             {
                 velocity.Y = -jumpForce * 1000 * (float)dt;
-                jumpActionPressed = false;
             }
+        }
+
+        private void CheckForGrapple()
+        {
+            if (!targeted)
+                foreach (Vector2 p in WorldData.grapplePoints)
+                {
+                    if (Vector2.Distance(p, position) < grappleDistance)
+                    {
+                        Trace.WriteLine($"targeted at {p}");
+                        targetedPoint = p;
+                        targeted = true;
+                        break;
+                    }
+                }
+            else if (Vector2.Distance(targetedPoint, position) > grappleDistance)
+            {
+                Trace.WriteLine("detargeted");
+                targeted = false;
+            }
+        }
+
+        private void Reset()
+        {
+            velocity = Vector2.Zero;
+            position = new Vector2(50, 100);
         }
     }
 }

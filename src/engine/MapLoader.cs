@@ -78,6 +78,8 @@ namespace EnginelessPhysics.src.engine
                         //add static entities for colisions except for a grapple hook
                         if (board[y, x] != Tiles._tiles.GRAPPLE)
                             WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
+                        else
+                            WorldData.grapplePoints.Add(new Vector2(posX, posY));
                     }
                 }
             }

@@ -26,6 +26,7 @@ namespace EnginelessPhysics.src.engine
         public float maxVelocityY = 1000f;
 
         public float linearFriction = 0.9f;
+        public bool grounded = false;
 
         public Shape sprite = new Rectangle { };
 
@@ -52,8 +53,11 @@ namespace EnginelessPhysics.src.engine
                 (velocity.Y * maxVelocityY) / MathF.Abs(velocity.Y) :
                 velocity.Y;
 
+            grounded =  velocity.Y == 0 ? 
+                true : false;
 
-            Trace.WriteLine(velocity);
+
+            //Trace.WriteLine(velocity);
             position += velocity * (float)deltaTime;
         }
 
