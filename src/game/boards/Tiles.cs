@@ -10,14 +10,7 @@ namespace EnginelessPhysics.src.game.boards
     {
         public enum _tiles
         {
-            //no color
-            AIR,
-
-            //green
-            GROUND,
-
-            //red
-            FIRE
+            AIR, GROUND, FIRE, GRAPPLE
         }
 
         public static Color GetBrush(this _tiles tile)
@@ -28,6 +21,8 @@ namespace EnginelessPhysics.src.game.boards
                     return Colors.Green;
                 case _tiles.FIRE:
                     return Colors.Red;
+                case _tiles.GRAPPLE:
+                    return Colors.Gray;
 
                 default:
                     return Colors.Transparent;

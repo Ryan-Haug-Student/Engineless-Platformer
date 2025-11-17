@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace EnginelessPhysics.src.engine
@@ -19,9 +20,12 @@ namespace EnginelessPhysics.src.engine
 
         //physics vars
         public Vector2 velocity = Vector2.Zero;
-        public Vector2 gravity = new Vector2 (0, 900f);
+        public Vector2 gravity = new Vector2 (0, 2500f);
 
-        public float linearFriction = 0.925f;
+        public float maxVelocityX = 300f;
+        public float maxVelocityY = 1000f;
+
+        public float linearFriction = 0.9f;
 
         public Shape sprite = new Rectangle { };
 
@@ -33,6 +37,28 @@ namespace EnginelessPhysics.src.engine
             velocity.X *= linearFriction;
             velocity.Y *= linearFriction + ((1 - linearFriction)/2);
 
+            CheckCollisions(deltaTime);
+
+            //stop object completely if value is too small to prevent small odd values
+            if (0 < velocity.X && velocity.X < 10 || velocity.X < 0 && velocity.X > -10)
+                velocity.X = 0;
+
+            //limit velocitys
+            velocity.X = MathF.Abs(velocity.X) > maxVelocityX ?
+                (velocity.X * maxVelocityX) / MathF.Abs(velocity.X) :
+                velocity.X;
+
+            velocity.Y = MathF.Abs(velocity.Y) > maxVelocityY ?
+                (velocity.Y * maxVelocityY) / MathF.Abs(velocity.Y) :
+                velocity.Y;
+
+
+            Trace.WriteLine(velocity);
+            position += velocity * (float)deltaTime;
+        }
+
+        private void CheckCollisions(double deltaTime)
+        {
             //check for collisions with **static** entities
             Vector2 futurePos = position + velocity * (float)deltaTime;
             foreach (var entity in WorldData.staticEntities)
@@ -40,7 +66,7 @@ namespace EnginelessPhysics.src.engine
                 //hoizontal colisions
                 if (
                     futurePos.X < entity.position.X + entity.scale.X &&
-                    futurePos.X + scale.X > entity.position.X && 
+                    futurePos.X + scale.X > entity.position.X &&
                     position.Y < entity.position.Y + entity.scale.Y &&
                     position.Y + scale.Y > entity.position.Y
                     ) { velocity.X = 0; }
@@ -54,12 +80,18 @@ namespace EnginelessPhysics.src.engine
                     ) { velocity.Y = 0; }
             }
 
-            //stop object completely if value is too small to prevent small odd values
-            if (0 < velocity.X && velocity.X < 1)
-                velocity.X = 0;
-
-            Trace.WriteLine(velocity);
-            position += velocity * (float)deltaTime;
+            //Physics entities
+            foreach (var e in WorldData.entities)
+            {
+                if (
+                    futurePos.X < e.position.X + e.scale.X &&
+                    futurePos.X + scale.X > e.position.X &&
+                    futurePos.Y < e.position.Y + e.scale.Y &&
+                    futurePos.Y + scale.Y > e.position.Y
+                    )
+                {//collision detected
+                }
+            }
         }
 
         // interpolate is a dynamic draw for smooth movement

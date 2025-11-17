@@ -17,8 +17,8 @@ namespace EnginelessPhysics.src.engine.entities
     public class Player : PhysicalEntity
     {
         //movement vars
-        public float playerSpeed = 900f;
-        public float jumpForce = 37f;
+        public float playerSpeed = 160f;
+        public float jumpForce = 55f;
 
         //input state (key held)
         private bool leftPressed;
@@ -88,7 +88,7 @@ namespace EnginelessPhysics.src.engine.entities
             if (moveDir.X != 0)
             {
                 Vector2 moveDirNormal = Vector2.Normalize(moveDir);
-                velocity += moveDirNormal * playerSpeed * (float)dt;
+                velocity += moveDirNormal * playerSpeed * 10 * (float)dt;
             }
 
             if (jumpActionPressed)

@@ -29,7 +29,7 @@ namespace EnginelessPhysics
 
         // Fixed-timestep accumulator
         private double accumulator = 0.0;
-        private double fixedDt = 1.0 / 60.0; // physics step at 120hz
+        private double fixedDt = 1.0 / 60.0; // physics step at 60hz
 
         public Player player;
 

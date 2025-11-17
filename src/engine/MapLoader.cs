@@ -75,8 +75,9 @@ namespace EnginelessPhysics.src.engine
 
                         bitmap.FillRectangle(x1, y1, x2, y2, tileColor);
 
-                        //add static entities for colisions
-                        WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
+                        //add static entities for colisions except for a grapple hook
+                        if (board[y, x] != Tiles._tiles.GRAPPLE)
+                            WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
                     }
                 }
             }
