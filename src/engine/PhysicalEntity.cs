@@ -25,7 +25,7 @@ namespace EnginelessPhysics.src.engine
         public float maxVelocityX = 300f;
         public float maxVelocityY = 1000f;
 
-        public float linearFriction = 0.9f;
+        public float linearFriction = 0.89f;
         public bool grounded = false;
 
         public Shape sprite = new Rectangle { };
@@ -35,8 +35,6 @@ namespace EnginelessPhysics.src.engine
         {
             //apply gravity and friction (vertical friction is havled)
             velocity += gravity * (float)deltaTime;
-            velocity.X *= linearFriction;
-            velocity.Y *= linearFriction + ((1 - linearFriction)/2);
 
             CheckCollisions(deltaTime);
 
@@ -53,9 +51,13 @@ namespace EnginelessPhysics.src.engine
                 (velocity.Y * maxVelocityY) / MathF.Abs(velocity.Y) :
                 velocity.Y;
 
-            grounded =  velocity.Y == 0 ? 
+            grounded = velocity.Y == 0 ? 
                 true : false;
 
+            float friction = grounded ? linearFriction : 0.99f;
+
+            velocity.X *= friction;
+            velocity.Y *= friction + ((1 - friction) / 2);
 
             //Trace.WriteLine(velocity);
             position += velocity * (float)deltaTime;

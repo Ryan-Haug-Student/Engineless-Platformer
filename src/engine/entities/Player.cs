@@ -18,7 +18,7 @@ namespace EnginelessPhysics.src.engine.entities
     {
         //movement vars
         public float playerSpeed = 160f;
-        public float jumpForce = 55f;
+        public float jumpForce = 48f;
 
         public float grappleDistance = 150f;
         private bool targeted = false;
