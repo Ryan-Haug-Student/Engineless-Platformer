@@ -63,7 +63,7 @@ namespace EnginelessPhysics.src.engine
             velocity.X *= friction;
             velocity.Y *= friction + ((1 - friction) / 2);
 
-            //Trace.WriteLine(velocity);
+            Trace.WriteLine(velocity);
             position += velocity * (float)deltaTime;
         }
 
@@ -78,45 +78,32 @@ namespace EnginelessPhysics.src.engine
                     futurePos.X < entity.position.X + entity.scale.X &&
                     futurePos.X + scale.X > entity.position.X &&
                     position.Y < entity.position.Y + entity.scale.Y &&
-                    position.Y + scale.Y > entity.position.Y
-                    ) { velocity.X = 0; }
+                    position.Y + scale.Y > entity.position.Y) 
+                { velocity.X = 0; }
 
                 //vertical collisions
                 if (
                     position.X < entity.position.X + entity.scale.X &&
                     position.X + scale.X > entity.position.X &&
                     futurePos.Y < entity.position.Y + entity.scale.Y &&
-                    futurePos.Y + scale.Y > entity.position.Y
-                    )
+                    futurePos.Y + scale.Y > entity.position.Y)
                 {
                     //check for bounce
-                    if (restitution != 0)
-                        if (velocity.Y > 0) //falling
-                        {
-                            position.Y = entity.position.Y - entity.scale.Y * 2;
-                            velocity.Y *= -restitution;
-                            break;
-                        }
-                        else //rising
-                        {
-                            position.Y = entity.position.Y + entity.scale.Y * 2;
-                            velocity.Y *= -restitution;
-                            break;
-                        }
-                    else // if no bounce then snap position and clear velocity
-                        if (velocity.Y > 0)
-                        {
+                    if (velocity.Y > 0) // falling
+                    {
+                        position.Y = entity.position.Y - scale.Y;
+                        if (MathF.Abs(velocity.Y) < 50f)
                             velocity.Y = 0;
-                            position.Y = entity.position.Y - scale.Y;
-                            break;
-                        }
-                        else
-                        {
-                            velocity.Y = 0.1f;
-                            position.Y = entity.position.Y + entity.scale.Y;
-                            break;
-                        }
-                }
+
+                        velocity.Y = -velocity.Y * restitution;
+                    }
+                    else // rising
+                    {
+                        position.Y = entity.position.Y + entity.scale.Y;
+                        velocity.Y = -velocity.Y * restitution + .1f;
+                    }
+                    break;
+                } // break the loop because there wont be multiple vertical colisions on the same frame
             }
 
             //Physics entities
