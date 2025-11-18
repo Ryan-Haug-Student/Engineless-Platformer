@@ -20,13 +20,17 @@ namespace EnginelessPhysics.src.engine
 
         //physics vars
         public Vector2 velocity = Vector2.Zero;
-        public Vector2 gravity = new Vector2 (0, 2500f);
+        public Vector2 gravity = new Vector2(0, 2500f);
 
         public float maxVelocityX = 300f;
         public float maxVelocityY = 1000f;
 
-        public float linearFriction = 0.89f;
+        //for friction the lower the value the more its slowed
+        public float linearFriction = 0.9f;
         public bool grounded = false;
+
+        //higher value more bounce
+        public float restitution = 0f;
 
         public Shape sprite = new Rectangle { };
 
@@ -51,7 +55,7 @@ namespace EnginelessPhysics.src.engine
                 (velocity.Y * maxVelocityY) / MathF.Abs(velocity.Y) :
                 velocity.Y;
 
-            grounded = velocity.Y == 0 ? 
+            grounded = velocity.Y == 0 ?
                 true : false;
 
             float friction = grounded ? linearFriction : 0.99f;
@@ -83,14 +87,43 @@ namespace EnginelessPhysics.src.engine
                     position.X + scale.X > entity.position.X &&
                     futurePos.Y < entity.position.Y + entity.scale.Y &&
                     futurePos.Y + scale.Y > entity.position.Y
-                    ) { velocity.Y = 0; }
+                    )
+                {
+                    //check for bounce
+                    if (restitution != 0)
+                        if (velocity.Y > 0) //falling
+                        {
+                            position.Y = entity.position.Y - entity.scale.Y * 2;
+                            velocity.Y *= -restitution;
+                            break;
+                        }
+                        else //rising
+                        {
+                            position.Y = entity.position.Y + entity.scale.Y * 2;
+                            velocity.Y *= -restitution;
+                            break;
+                        }
+                    else // if no bounce then snap position and clear velocity
+                        if (velocity.Y > 0)
+                        {
+                            velocity.Y = 0;
+                            position.Y = entity.position.Y - scale.Y;
+                            break;
+                        }
+                        else
+                        {
+                            velocity.Y = 0.1f;
+                            position.Y = entity.position.Y + entity.scale.Y;
+                            break;
+                        }
+                }
             }
 
             //Physics entities
             foreach (var e in WorldData.entities)
             {
                 if (
-                    e != this && 
+                    e != this &&
 
                     futurePos.X < e.position.X + e.scale.X &&
                     futurePos.X + scale.X > e.position.X &&
