@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnginelessPhysics.src.engine.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -23,6 +24,7 @@ namespace EnginelessPhysics.src.engine.entities
         public float grappleDistance = 150f;
         private bool targeted = false;
         private Vector2 targetedPoint = Vector2.Zero;
+        public static Target target;
 
         //input state (key held)
         private bool leftPressed;
@@ -113,16 +115,26 @@ namespace EnginelessPhysics.src.engine.entities
                 foreach (Vector2 p in WorldData.grapplePoints)
                 {
                     if (Vector2.Distance(p, position) < grappleDistance)
-                    {
-                        Trace.WriteLine($"targeted at {p}");
+                    {   //push the creation to UI thread
+                        MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            target = new Target(p, WorldData.tileScale /2);
+                            MainWindow.canvas.Children.Add(target.sprite);
+                            target.Draw();
+                        }));
+
                         targetedPoint = p;
                         targeted = true;
                         break;
                     }
                 }
-            else if (Vector2.Distance(targetedPoint, position) > grappleDistance)
-            {
-                Trace.WriteLine("detargeted");
+            else if (Vector2.Distance(targetedPoint, position) > grappleDistance && targetedPoint != Vector2.Zero)
+            {   //push the creation to UI thread
+                MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    target.Destroy();
+                }));
+                targetedPoint = Vector2.Zero;
                 targeted = false;
             }
         }

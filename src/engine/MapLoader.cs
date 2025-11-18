@@ -1,4 +1,5 @@
-﻿using EnginelessPhysics.src.engine.Entities;
+﻿using EnginelessPhysics.src.engine.entities;
+using EnginelessPhysics.src.engine.Entities;
 using EnginelessPhysics.src.game.boards;
 using System.Diagnostics;
 using System.Globalization;
@@ -21,7 +22,8 @@ namespace EnginelessPhysics.src.engine
 
             //get the correct board to load
             Tiles._tiles[,]? board = null;
-            float tileSize = MathF.Ceiling(windowHeight / 12);
+            WorldData.tileScale = MathF.Ceiling(windowHeight / 12);
+            float tileSize = WorldData.tileScale;
 
             switch (toLoad)
             {
@@ -91,6 +93,7 @@ namespace EnginelessPhysics.src.engine
             BMImage.Source = bitmap;
 
             MainWindow.canvas.Children.Add(BMImage);
+            Panel.SetZIndex(BMImage, -1);
 
             Canvas.SetLeft(BMImage, 0);
             Canvas.SetTop(BMImage, 0);

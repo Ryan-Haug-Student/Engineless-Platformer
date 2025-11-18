@@ -18,7 +18,7 @@ namespace EnginelessPhysics.src.engine
         public Vector2 position = Vector2.Zero;
         public Vector2 scale = Vector2.One;
 
-        public Shape sprite = new Rectangle { };
+        public Shape? sprite;
 
         //add update function here so that entities that need to run on update can access
         public abstract void update(double deltaTime);

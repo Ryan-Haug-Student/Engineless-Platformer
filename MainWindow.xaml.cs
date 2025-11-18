@@ -1,5 +1,6 @@
 ﻿using EnginelessPhysics.src.engine;
 using EnginelessPhysics.src.engine.entities;
+using EnginelessPhysics.src.engine.Entities;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
@@ -19,6 +20,8 @@ namespace EnginelessPhysics
         public static List<Entity> staticEntities = new List<Entity>();
 
         public static List<Vector2> grapplePoints = new List<Vector2>();
+
+        public static float tileScale;
     }
 
     public partial class MainWindow : Window
@@ -35,6 +38,7 @@ namespace EnginelessPhysics
 
         public Player player;
 
+
         private bool physicsRunning = true;
 
         public MainWindow()
@@ -42,7 +46,7 @@ namespace EnginelessPhysics
             InitializeComponent();
             Content = canvas;
             canvas.RenderTransform = cameraTransform;
-            Title = "Non-Physical Platformer"; 
+            Title = "Non-Physical Platformer";
 
             //wait to load the map until the window is initialized
             Loaded += (s, e) =>
@@ -58,7 +62,6 @@ namespace EnginelessPhysics
 
             //add player reference and move player to top of screen
             player = WorldData.entities.OfType<Player>().First();
-            Panel.SetZIndex(player.sprite, 1);
 
             foreach (PhysicalEntity entity in WorldData.entities)
                 canvas.Children.Add(entity.sprite);
