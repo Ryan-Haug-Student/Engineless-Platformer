@@ -12,6 +12,12 @@
         SnapsToDevicePixels="True"
         >
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="79*"/>
+            <ColumnDefinition Width="881*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="StartButton" Content="Start" Margin="371,222,440,262" Grid.Column="1" Click="StartButtonClicked"></Button>
 
     </Grid>
 </Window>

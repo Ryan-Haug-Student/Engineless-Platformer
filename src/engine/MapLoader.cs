@@ -22,7 +22,7 @@ namespace EnginelessPhysics.src.engine
 
             //get the correct board to load
             Tiles._tiles[,]? board = null;
-            WorldData.tileScale = MathF.Ceiling(windowHeight / 12);
+            WorldData.tileScale = MathF.Ceiling(windowHeight / 12f);
             float tileSize = WorldData.tileScale;
 
             switch (toLoad)
@@ -67,7 +67,7 @@ namespace EnginelessPhysics.src.engine
                         //round positions to ensure that there is no gaps between tiles
                         float posX = MathF.Round(x * tileSize);
                         float posY = MathF.Round(y * tileSize);
-                        Color tileColor = LevelOne.board[y, x].GetBrush();
+                        Color tileColor = board[y, x].GetBrush();
 
                         int x1 = (int) posX;
                         int x2 = (int) (posX + tileSize);

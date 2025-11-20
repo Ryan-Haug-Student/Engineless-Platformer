@@ -1,6 +1,7 @@
 ﻿using EnginelessPhysics.src.engine;
 using EnginelessPhysics.src.engine.entities;
 using EnginelessPhysics.src.engine.Entities;
+using EnginelessPhysics.src.game;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
@@ -26,8 +27,9 @@ namespace EnginelessPhysics
 
     public partial class MainWindow : Window
     {
+        public static object _origContent;
         public static GameCanvas canvas = new GameCanvas();
-        private static TranslateTransform cameraTransform = new TranslateTransform();
+        public static TranslateTransform cameraTransform = new TranslateTransform();
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
         public static Stopwatch? gameTimer;
@@ -36,42 +38,19 @@ namespace EnginelessPhysics
         private double accumulator = 0.0;
         private double fixedDt = 1.0 / 60.0; // physics step at 60hz
 
-        public Player player;
+        public static Player player;
 
-
-        private bool physicsRunning = true;
+        public static bool physicsRunning = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            Content = canvas;
-            canvas.RenderTransform = cameraTransform;
             Title = "Non-Physical Platformer";
 
-            //wait to load the map until the window is initialized
-            Loaded += (s, e) =>
-            {
-                MapLoader.LoadMap(1);
-                Keyboard.Focus(this);
-            };
-
-            //physical entities go here
-            WorldData.entities.Add(new Player(
-                new Vector2(50, 100),  //starting pos
-                new Vector2(35, 70))); //scale
-
-            //add player reference and move player to top of screen
-            player = WorldData.entities.OfType<Player>().First();
-
-            foreach (PhysicalEntity entity in WorldData.entities)
-                canvas.Children.Add(entity.sprite);
-
-            StartPhysicsLoop();
-
-            // Update screens every screen refresh
-            CompositionTarget.Rendering += UpdateScreen;
+            StartPhysics();
         }
 
+        //update screen and physics loop need to be in mainwindow due to them handling u
         private void UpdateScreen(object? sender, EventArgs e)
         {
             double alpha = Math.Clamp(accumulator / fixedDt, 0.0, 1.0);
@@ -79,36 +58,40 @@ namespace EnginelessPhysics
                 entity.Interpolate(alpha);
         }
 
-        private void StartPhysicsLoop()
+        private void StartPhysics()
         {
-            Task.Run(() =>
-            {
-                gameTimer = Stopwatch.StartNew();
-                double lastTime = gameTimer.Elapsed.TotalSeconds;
-                double fixedDt = 1.0 / 60.0; // 60 Hz
-
-                while (physicsRunning)
+                Task.Run(async () =>
                 {
-                    double currentTime = gameTimer.Elapsed.TotalSeconds;
-                    double deltaTime = currentTime - lastTime;
-                    lastTime = currentTime;
-
-                    accumulator += deltaTime;
-
-                    while (accumulator >= fixedDt)
+                    //keep running between levels
+                    while (true)
                     {
-                        foreach (var entity in WorldData.entities)
+                        gameTimer = Stopwatch.StartNew();
+                        double lastTime = gameTimer.Elapsed.TotalSeconds;
+                        double fixedDt = 1.0 / 60.0; // 60 Hz
+
+                        while (physicsRunning)
                         {
-                            entity.previousPosition = entity.position;
-                            entity.update(fixedDt);
+                            double currentTime = gameTimer.Elapsed.TotalSeconds;
+                            double deltaTime = currentTime - lastTime;
+                            lastTime = currentTime;
+
+                            accumulator += deltaTime;
+
+                            while (accumulator >= fixedDt)
+                            {
+                                foreach (var entity in WorldData.entities)
+                                {
+                                    entity.previousPosition = entity.position;
+                                    entity.update(fixedDt);
+                                }
+
+                                accumulator -= fixedDt;
+                            }
+
+                            await Task.Delay(1);
                         }
-
-                        accumulator -= fixedDt;
                     }
-
-                    Thread.Sleep(1); // avoid high cpu usage
-                }
-            });
+                });
         }
 
         //to be called by the player to be able to use interpolated position
@@ -126,12 +109,31 @@ namespace EnginelessPhysics
         // ==============================================================
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            player.OnKeyDown(e);
+            if (player != null)
+                player.OnKeyDown(e);
+
+            if (e.Key == Key.Escape)
+            {
+                GameManager.ClearScene();
+                Content = _origContent;
+            }
+            else if (e.Key == Key.D2)
+            {
+                GameManager.ClearScene();
+                GameManager.LoadScene(2);
+            }
+            else if (e.Key == Key.D3)
+            {
+                GameManager.ClearScene();
+                GameManager.LoadScene(3);
+            }
+
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            player.OnKeyUp(e);
+            if (player != null)
+                player.OnKeyUp(e);
         }
 
         //when the window closes, reset the timer potentially stopping a memory leak / large delta times
@@ -141,8 +143,21 @@ namespace EnginelessPhysics
 
             physicsRunning = false;
         }
-    }
 
+        //main menu buttons
+        //===============================================================
+        
+        private void StartButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _origContent = Content;
+
+            canvas = new GameCanvas();
+            Content = canvas;
+            canvas.Loaded += (s, e) => GameManager.LoadScene(1);
+
+            CompositionTarget.Rendering += UpdateScreen;
+        }
+    }
 
 
     public class GameCanvas : Canvas
