@@ -40,6 +40,7 @@ namespace EnginelessPhysics.src.game
             WorldData.staticEntities.Clear();
             WorldData.grapplePoints.Clear();
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference. wont be null because im creating new timers
             MainWindow.gameTimer.Stop(); MainWindow.gameTimer.Reset();
 
             MainWindow.physicsRunning = false;

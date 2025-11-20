@@ -27,7 +27,7 @@ namespace EnginelessPhysics
 
     public partial class MainWindow : Window
     {
-        public static object _origContent;
+        public static object? _origContent;
         public static GameCanvas canvas = new GameCanvas();
         public static TranslateTransform cameraTransform = new TranslateTransform();
 
@@ -38,7 +38,7 @@ namespace EnginelessPhysics
         private double accumulator = 0.0;
         private double fixedDt = 1.0 / 60.0; // physics step at 60hz
 
-        public static Player player;
+        public static Player? player;
 
         public static bool physicsRunning = false;
 
@@ -139,6 +139,7 @@ namespace EnginelessPhysics
         //when the window closes, reset the timer potentially stopping a memory leak / large delta times
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference. wont be null because im creating new timers
             gameTimer.Stop(); gameTimer.Reset();
 
             physicsRunning = false;
