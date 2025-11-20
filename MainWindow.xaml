@@ -12,8 +12,9 @@
         SnapsToDevicePixels="True"
         >
     <Grid>
-        <TextBlock Text="NO ENGINE GAME????" FontSize="32" Margin="279,112,278,296" Grid.Column="1" />
-        <Button x:Name="StartButton" Content="Start" Margin="343,233,343,242" Grid.Column="1" Click="StartButtonClicked"></Button>
+        <TextBlock Text="NO ENGINE GAME????" FontSize="32" Margin="336,116,298,292" />
+        <Button x:Name="StartButton" Content="Start" Margin="362,237,324,237" Click="StartButtonClicked"/>
+        <Button x:Name="QuitButton" Content="Quit" Margin="380,334,342,141" Click="QuitButtonClicked"/>
 
     </Grid>
 </Window>

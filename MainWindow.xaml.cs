@@ -158,6 +158,11 @@ namespace EnginelessPhysics
 
             CompositionTarget.Rendering += UpdateScreen;
         }
+
+        private void QuitButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 
 
