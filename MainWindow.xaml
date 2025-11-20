@@ -12,11 +12,6 @@
         SnapsToDevicePixels="True"
         >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="79*"/>
-            <ColumnDefinition Width="881*"/>
-        </Grid.ColumnDefinitions>
-
         <TextBlock Text="NO ENGINE GAME????" FontSize="32" Margin="279,112,278,296" Grid.Column="1" />
         <Button x:Name="StartButton" Content="Start" Margin="343,233,343,242" Grid.Column="1" Click="StartButtonClicked"></Button>
 
