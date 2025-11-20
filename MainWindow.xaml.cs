@@ -45,7 +45,7 @@ namespace EnginelessPhysics
         public MainWindow()
         {
             InitializeComponent();
-            Title = "Non-Physical Platformer";
+            Title = "physics now?????";
 
             StartPhysics();
         }
