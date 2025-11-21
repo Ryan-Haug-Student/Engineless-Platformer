@@ -24,12 +24,14 @@ namespace EnginelessPhysics.src.engine.entities
         public float grappleDistance = 150f;
         private bool targeted = false;
         private Vector2 targetedPoint = Vector2.Zero;
-        public static Target target;
+        public static Target? target;
 
         //input state (key held)
         private bool leftPressed;
         private bool rightPressed;
+
         private bool jumpPressed;
+        private bool grapplePressed;
 
         public Player(Vector2 Pos, Vector2 Scale)
         {
@@ -68,6 +70,7 @@ namespace EnginelessPhysics.src.engine.entities
             switch (e.Key)
             {
                 case Key.Space: jumpPressed = true; break;
+                case Key.E: grapplePressed = true; break;
 
                 case Key.A: leftPressed = true; break;
                 case Key.D: rightPressed = true; break;
@@ -80,7 +83,8 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.Space: jumpPressed = false; break;
+                case Key.Space: jumpPressed = false; break; 
+                case Key.E: grapplePressed = false; break; 
 
                 case Key.A: leftPressed = false; break;
                 case Key.D: rightPressed = false; break;
@@ -106,6 +110,11 @@ namespace EnginelessPhysics.src.engine.entities
             if (jumpPressed && grounded)
             {
                 velocity.Y = -jumpForce * 1000 * (float)dt;
+            }
+
+            if (grapplePressed && targeted)
+            {
+                Grapple();
             }
         }
 
@@ -137,6 +146,12 @@ namespace EnginelessPhysics.src.engine.entities
                 targetedPoint = Vector2.Zero;
                 targeted = false;
             }
+        }
+
+        private void Grapple()
+        {
+            if (Vector2.Distance(targetedPoint, position) > 30f)
+                velocity += targetedPoint - position;
         }
 
         private void Reset()

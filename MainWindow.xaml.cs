@@ -139,7 +139,7 @@ namespace EnginelessPhysics
         //when the window closes, reset the timer potentially stopping a memory leak / large delta times
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-#pragma warning disable CS8602 // Dereference of a possibly null reference. wont be null because im creating new timers
+#pragma warning disable CS8602
             gameTimer.Stop(); gameTimer.Reset();
 
             physicsRunning = false;
