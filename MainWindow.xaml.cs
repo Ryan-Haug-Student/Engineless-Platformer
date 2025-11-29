@@ -46,6 +46,8 @@ namespace EnginelessPhysics
         {
             InitializeComponent();
             Title = "physics now?????";
+
+            StartPhysics();
         }
 
         //update screen and physics loop need to be in mainwindow due to them handling u
@@ -163,7 +165,6 @@ namespace EnginelessPhysics
             Content = canvas;
             canvas.Loaded += (s, e) => GameManager.LoadScene(1);
 
-            StartPhysics();
             CompositionTarget.Rendering += UpdateScreen;
         }
 
