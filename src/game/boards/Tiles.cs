@@ -19,13 +19,11 @@ namespace EnginelessPhysics.src.game.boards
             {
                 case _tiles.GROUND:
                     return Colors.Green;
-                case _tiles.FIRE:
-                    return Colors.Red;
                 case _tiles.GRAPPLE:
                     return Colors.Gray;
 
-                default:
-                    return Colors.Transparent;
+                default://return lightblue as its the color of the sky
+                    return Colors.LightBlue;
             }
         }
     }

@@ -28,7 +28,7 @@ namespace EnginelessPhysics.src.game.boards
             {e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e},
             {e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e},
             {e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e},
-            {e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e},
+            {e, e, e, e, e, e, e, e, e, e, f, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e},
             {g, e, e, e, e, e, e, e, e, g, g, g, g, g, g, g, g, g, g, g, e, e, e, e, e, e, g, g, g, g, g, g, g, g, g, g, g, e},
             {e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e},
             {e, g, g, g, g, g, g, e, e, e, e, f, f, f, e, e, e, g, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e},

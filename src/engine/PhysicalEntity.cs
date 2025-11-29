@@ -123,7 +123,7 @@ namespace EnginelessPhysics.src.engine
 
         public virtual void OnCollisionEnter(PhysicalEntity collider)
         {
-            throw new Exception("OOPS YOU DIE");
+            
         }
 
         // interpolate is a dynamic draw for smooth movement

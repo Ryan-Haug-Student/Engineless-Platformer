@@ -46,8 +46,6 @@ namespace EnginelessPhysics
         {
             InitializeComponent();
             Title = "physics now?????";
-
-            StartPhysics();
         }
 
         //update screen and physics loop need to be in mainwindow due to them handling u
@@ -105,6 +103,16 @@ namespace EnginelessPhysics
             cameraTransform.Y = -camY;
         }
 
+        public static void LoadMainMenu()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                GameManager.ClearScene();
+                if (_origContent != null)
+                    ((MainWindow)Application.Current.MainWindow).Content = _origContent;
+            });
+        }
+
         //functions from XAML
         // ==============================================================
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -114,8 +122,7 @@ namespace EnginelessPhysics
 
             if (e.Key == Key.Escape)
             {
-                GameManager.ClearScene();
-                Content = _origContent;
+                LoadMainMenu();
             }
             else if (e.Key == Key.D2)
             {
@@ -156,6 +163,7 @@ namespace EnginelessPhysics
             Content = canvas;
             canvas.Loaded += (s, e) => GameManager.LoadScene(1);
 
+            StartPhysics();
             CompositionTarget.Rendering += UpdateScreen;
         }
 

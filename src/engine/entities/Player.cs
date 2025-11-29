@@ -1,4 +1,5 @@
 ﻿using EnginelessPhysics.src.engine.Entities;
+using EnginelessPhysics.src.game.boards;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -62,6 +63,12 @@ namespace EnginelessPhysics.src.engine.entities
             Canvas.SetTop(sprite, renderPos.Y);
 
             MainWindow.MoveCamera(renderPos);
+        }
+
+        public override void OnCollisionEnter(PhysicalEntity collider)
+        {
+            if (collider is Spike)
+                MainWindow.LoadMainMenu();
         }
 
         //player input, using bools to keep smooth and continous movement even if opposite key is pressed
