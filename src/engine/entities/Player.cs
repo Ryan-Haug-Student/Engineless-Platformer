@@ -67,7 +67,7 @@ namespace EnginelessPhysics.src.engine.entities
 
         public override void OnCollisionEnter(PhysicalEntity collider)
         {
-            if (collider is Spike)
+            if (collider is Spike || collider is Roomba)
                 MainWindow.LoadMainMenu();
         }
 
