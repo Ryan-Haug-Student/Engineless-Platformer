@@ -39,9 +39,9 @@ namespace EnginelessPhysics.src.engine.Entities
                 moveDir.X *= -1;
 
             if (position.Y > maxY)
-            {
-                this.Destroy();
-                Debug.WriteLine("destroyed " + this);
+            { //stop object falling to prevent extreme numbers
+                gravity = Vector2.Zero;
+                velocity = Vector2.Zero;
             }
         }
     }
