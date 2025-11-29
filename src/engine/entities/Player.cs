@@ -76,6 +76,7 @@ namespace EnginelessPhysics.src.engine.entities
                 case Key.D: rightPressed = true; break;
 
                 case Key.R: Reset(); break;
+                case Key.P: MainWindow.physicsRunning = MainWindow.physicsRunning ? false : true; break;
             }
         }
 
