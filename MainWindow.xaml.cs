@@ -107,7 +107,7 @@ namespace EnginelessPhysics
 
         public static void LoadMainMenu()
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.BeginInvoke(() =>
             {
                 GameManager.ClearScene();
                 if (_origContent != null)
