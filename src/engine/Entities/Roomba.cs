@@ -5,7 +5,9 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace EnginelessPhysics.src.engine.Entities
 {
@@ -19,12 +21,14 @@ namespace EnginelessPhysics.src.engine.Entities
         public Roomba(Vector2 pos)
         {
             position = pos ;
-            scale.X = WorldData.tileScale;
-            scale.Y = WorldData.tileScale / 2;
+            scale = new Vector2(WorldData.tileScale, WorldData.tileScale / 2);
 
-            sprite.Width = scale.X;
-            sprite.Height = scale.Y;
-            sprite.Fill = Brushes.DarkRed;
+            sprite = new Rectangle
+            {
+                Width = scale.X,
+                Height = scale.Y,
+                Fill = Brushes.DarkRed
+            };
         }
 
         public override void update(double deltaTime)

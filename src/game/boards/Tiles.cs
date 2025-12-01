@@ -22,7 +22,7 @@ namespace EnginelessPhysics.src.game.boards
                 case _tiles.GRAPPLE:
                     return Colors.Gray;
 
-                default://return lightblue as its the color of the sky
+                default://return lightblue as "transparent"
                     return Colors.LightBlue;
             }
         }
