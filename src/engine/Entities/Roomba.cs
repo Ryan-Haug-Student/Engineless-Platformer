@@ -44,5 +44,11 @@ namespace EnginelessPhysics.src.engine.Entities
                 velocity = Vector2.Zero;
             }
         }
+
+        public override void OnCollisionEnter(PhysicalEntity collider)
+        {
+            if (collider is Roomba)
+                moveDir *= -1;
+        }
     }
 }
