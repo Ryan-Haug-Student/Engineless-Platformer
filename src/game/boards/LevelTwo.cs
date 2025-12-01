@@ -10,7 +10,7 @@ namespace EnginelessPhysics.src.game.boards
     {
         private static Tiles._tiles e = Tiles._tiles.AIR;
         private static Tiles._tiles g = Tiles._tiles.GROUND;
-        private static Tiles._tiles f = Tiles._tiles.FIRE;
+        private static Tiles._tiles f = Tiles._tiles.SPIKE;
         private static Tiles._tiles h = Tiles._tiles.GRAPPLE;
 
         //temp board until tile types are determined

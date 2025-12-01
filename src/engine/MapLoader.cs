@@ -81,7 +81,7 @@ namespace EnginelessPhysics.src.engine
                         if (board[y, x] == Tiles._tiles.GRAPPLE)
                             WorldData.grapplePoints.Add(new Vector2(posX, posY));
 
-                        else if (board[y, x] == Tiles._tiles.FIRE)
+                        else if (board[y, x] == Tiles._tiles.SPIKE)
                             WorldData.entities.Add(new Spike(new Vector2(posX, posY)));
 
                         else if (board[y, x] == Tiles._tiles.ROOMBA)

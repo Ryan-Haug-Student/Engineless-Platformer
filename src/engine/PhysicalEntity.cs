@@ -106,7 +106,8 @@ namespace EnginelessPhysics.src.engine
                 } // break the loop because there wont be multiple vertical colisions on the same frame
             }
 
-            //Physics entities
+            //Physics entities reset future pos based on the physical object colisions
+            futurePos = position + velocity * (float)deltaTime;
             foreach (var e in WorldData.entities)
             {
                 if (

@@ -2,6 +2,7 @@
 using EnginelessPhysics.src.engine.entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -14,7 +15,7 @@ namespace EnginelessPhysics.src.game
     { 
         public static void LevelCompleted()
         {
-
+            Trace.WriteLine("FLAG HIT !!!!!!!!!!");
         }
 
         public static void LoadScene(int toLoad)

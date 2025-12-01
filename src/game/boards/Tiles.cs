@@ -10,7 +10,7 @@ namespace EnginelessPhysics.src.game.boards
     {
         public enum _tiles
         {
-            AIR, BARRIER, GROUND, FIRE, ROOMBA, GRAPPLE, COIN, FLAG
+            AIR, BARRIER, GROUND, SPIKE, ROOMBA, GRAPPLE, COIN, FLAG
         }
 
         public static Color GetBrush(this _tiles tile)
