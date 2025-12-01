@@ -80,8 +80,10 @@ namespace EnginelessPhysics.src.engine
                         //add entities based on tile type
                         if (board[y, x] == Tiles._tiles.GRAPPLE)
                             WorldData.grapplePoints.Add(new Vector2(posX, posY));
+
                         else if (board[y, x] == Tiles._tiles.FIRE)
                             WorldData.entities.Add(new Spike(new Vector2(posX, posY)));
+
                         else if (board[y, x] == Tiles._tiles.ROOMBA)
                             WorldData.entities.Add(new Roomba(new Vector2(posX, posY)));
                         else

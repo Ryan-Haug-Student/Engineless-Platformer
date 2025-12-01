@@ -23,7 +23,7 @@ namespace EnginelessPhysics.src.engine
         public Vector2 gravity = new Vector2(0, 2500f);
 
         public float maxVelocityX = 300f;
-        public float maxVelocityY = 780f;
+        public float maxVelocityY = 860f;
 
         //for friction the lower the value the more its slowed
         public float linearFriction = 0.9f;

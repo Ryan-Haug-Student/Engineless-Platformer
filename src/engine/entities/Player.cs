@@ -19,8 +19,8 @@ namespace EnginelessPhysics.src.engine.entities
     public class Player : PhysicalEntity
     {
         //movement vars
-        public float playerSpeed = 160f;
-        public float jumpForce = 48f;
+        public float playerSpeed = 180f;
+        public float jumpForce = 65f;
 
         public float grappleDistance = 150f;
         private bool targeted = false;
