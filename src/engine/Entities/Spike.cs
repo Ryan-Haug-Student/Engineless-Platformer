@@ -12,17 +12,27 @@ namespace EnginelessPhysics.src.engine.Entities
 {
     public class Spike : PhysicalEntity
     {
-        public Spike(Vector2 pos) 
+        public Spike(Vector2 pos)
         {
-            position = new Vector2(pos.X + WorldData.tileScale / 2, pos.Y + WorldData.tileScale / 2);
-            scale.X = WorldData.tileScale / 2;
-            scale.Y = WorldData.tileScale / 2;
+            float tileSize = WorldData.tileScale;
 
-            sprite.Width = scale.X;
-            sprite.Height = scale.Y;
-            sprite.Fill = Brushes.Red;
+            float spikeWidth = tileSize * 0.5f;
+            float spikeHeight = tileSize * 0.5f;
 
-            gravity = Vector2.Zero;
+            scale = new Vector2(spikeWidth, spikeHeight);
+
+            // centered horizontally, bottom-aligned vertically
+            position = new Vector2(
+                pos.X + (tileSize - spikeWidth) * 0.5f,
+                pos.Y + (tileSize - spikeHeight)
+            );
+
+            sprite = new Rectangle
+            {
+                Width = spikeWidth,
+                Height = spikeHeight,
+                Fill = Brushes.Red
+            };
         }
 
         public override void update(double deltaTime){}

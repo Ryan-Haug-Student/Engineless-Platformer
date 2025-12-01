@@ -86,6 +86,10 @@ namespace EnginelessPhysics.src.engine
 
                         else if (board[y, x] == Tiles._tiles.ROOMBA)
                             WorldData.entities.Add(new Roomba(new Vector2(posX, posY)));
+
+                        else if (board[y, x] == Tiles._tiles.COIN)
+                            WorldData.entities.Add(new Coin(new Vector2(posX, posY)));
+
                         else
                             WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
                     }
