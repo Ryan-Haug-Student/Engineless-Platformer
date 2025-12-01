@@ -21,6 +21,7 @@ namespace EnginelessPhysics.src.game.boards
         //interactables
         private static Tiles._tiles h = Tiles._tiles.GRAPPLE;
         private static Tiles._tiles c = Tiles._tiles.COIN;
+        private static Tiles._tiles w = Tiles._tiles.FLAG;
 
         //temp board until tile types are determined
         public static Tiles._tiles[,] board = new Tiles._tiles[,]
@@ -37,7 +38,7 @@ namespace EnginelessPhysics.src.game.boards
             {b, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, e, e, g, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, c, g, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, g, g, g, g, e, e, e, e, e, e, e, b},
             {b, e, e, g, e, e, e, e, e, g, e, e, e, e, e, c, e, e, g, e, e, c, e, e, e, e, e, g, e, e, e, e, e, e, e, e, e, e, g, g, e, e, e, e, e, g, g, e, e, g, g, e, e, e, e, e, e, e, e, g, g, g, e, e, g, g, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, g, g, g, g, g, e, e, e, e, e, e, e, b},
             {b, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, e, e, g, g, g, e, e, e, e, e, e, g, g, g, g, e, e, g, g, g, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, g, g, g, g, g, g, e, e, e, e, e, e, e, b},
-            {b, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, g, e, e, g, g, g, g, e, e, e, e, g, g, g, g, g, e, e, g, g, g, g, e, e, e, e, e, e, e, r, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, g, g, g, g, g, g, g, e, e, e, e, e, c, e, b},
+            {b, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, g, e, e, g, g, g, g, e, e, e, e, g, g, g, g, g, e, e, g, g, g, g, e, e, e, e, e, e, e, r, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, g, g, g, g, g, g, g, g, g, g, e, e, e, e, e, w, e, b},
             {g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, e, e, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g},
             {g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, e, e, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g},
             {g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, e, e, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g},

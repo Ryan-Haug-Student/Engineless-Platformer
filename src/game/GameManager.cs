@@ -12,6 +12,11 @@ namespace EnginelessPhysics.src.game
 {
     public static class GameManager
     { 
+        public static void LevelCompleted()
+        {
+
+        }
+
         public static void LoadScene(int toLoad)
         {
             MainWindow.canvas.RenderTransform = MainWindow.cameraTransform;
