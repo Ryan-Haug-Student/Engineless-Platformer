@@ -77,24 +77,33 @@ namespace EnginelessPhysics.src.engine
 
                         bitmap.FillRectangle(x1, y1, x2, y2, tileColor);
 
-                        //add entities based on tile type
-                        if (board[y, x] == Tiles._tiles.GRAPPLE)
-                            WorldData.grapplePoints.Add(new Vector2(posX, posY));
+                        switch (board[y, x]) 
+                        {
+                            case Tiles._tiles.GRAPPLE:
+                                WorldData.grapplePoints.Add(new Vector2(posX, posY));
+                                break;
 
-                        else if (board[y, x] == Tiles._tiles.SPIKE)
-                            WorldData.entities.Add(new Spike(new Vector2(posX, posY)));
+                            case Tiles._tiles.SPIKE:
+                                WorldData.entities.Add(new Spike(new Vector2(posX, posY)));
+                                break;
 
-                        else if (board[y, x] == Tiles._tiles.ROOMBA)
-                            WorldData.entities.Add(new Roomba(new Vector2(posX, posY)));
+                            case Tiles._tiles.ROOMBA:
+                                WorldData.entities.Add(new Roomba(new Vector2(posX, posY)));
+                                break;
 
-                        else if (board[y, x] == Tiles._tiles.FLAG)
-                            WorldData.entities.Add(new Flag(new Vector2(posX, posY)));
+                            case Tiles._tiles.FLAG:
+                                WorldData.entities.Add(new Flag(new Vector2(posX, posY)));
+                                break;
 
-                        else if (board[y, x] == Tiles._tiles.COIN)
-                            WorldData.entities.Add(new Coin(new Vector2(posX, posY)));
+                            case Tiles._tiles.COIN:
+                                WorldData.entities.Add(new Coin(new Vector2(posX, posY)));
+                                break;
 
-                        else
-                            WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
+
+                            default: //assume ground
+                                WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
+                                break;
+                        }         
                     }
                 }
             }
