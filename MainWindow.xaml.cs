@@ -126,6 +126,7 @@ namespace EnginelessPhysics
             {
                 LoadMainMenu();
             }
+            //testing buttons to quick load levels
             else if (e.Key == Key.D2)
             {
                 GameManager.ClearScene();
@@ -163,7 +164,7 @@ namespace EnginelessPhysics
 
             canvas = new GameCanvas();
             Content = canvas;
-            canvas.Loaded += (s, e) => GameManager.LoadScene(1);
+            canvas.Loaded += (s, e) => GameManager.LoadScene(0);
 
             CompositionTarget.Rendering += UpdateScreen;
         }

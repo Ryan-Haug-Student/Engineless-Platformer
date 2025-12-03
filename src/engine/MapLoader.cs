@@ -27,6 +27,9 @@ namespace EnginelessPhysics.src.engine
 
             switch (toLoad)
             {
+                case 0:
+                    board = LevelZero.board; 
+                    break;
                 case 1:
                     board = LevelOne.board;
                     break;
