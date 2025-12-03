@@ -137,7 +137,7 @@ namespace EnginelessPhysics.src.engine.entities
                     }
                 }
             else if (Vector2.Distance(targetedPoint, position) > grappleDistance && targetedPoint != Vector2.Zero)
-            {   //push the creation to UI thread
+            {   //push the deletion to UI thread
                 MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     target.Destroy();

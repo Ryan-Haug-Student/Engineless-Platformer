@@ -15,7 +15,6 @@
         private static Tiles._tiles c = Tiles._tiles.COIN;
         private static Tiles._tiles w = Tiles._tiles.FLAG;
 
-        //temp board until tile types are determined
         public static Tiles._tiles[,] board = new Tiles._tiles[,]
         {
             {b, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, b},
