@@ -46,7 +46,7 @@ namespace EnginelessPhysics.src.engine
                 cols * (int)tileSize,   //width
                 rows * (int)tileSize,   //height
                 96, 96,                 //dpi
-                PixelFormats.Bgr32,     //pixel format, also color palette
+                PixelFormats.Pbgra32,   //pixel format, also color palette
                 null                    //would be color palette
                 );
 
