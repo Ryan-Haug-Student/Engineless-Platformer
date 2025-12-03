@@ -13,8 +13,6 @@ namespace EnginelessPhysics.src.engine.Entities
 {
     public class Coin : PhysicalEntity
     {
-        private float trueScale = WorldData.tileScale * .75f;
-
         public Coin(Vector2 tilePos)
         {
             float tileScale = WorldData.tileScale;

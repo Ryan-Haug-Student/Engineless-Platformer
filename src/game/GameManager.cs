@@ -2,6 +2,7 @@
 using EnginelessPhysics.src.engine.entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
@@ -12,17 +13,22 @@ using System.Windows.Controls;
 namespace EnginelessPhysics.src.game
 {
     public static class GameManager
-    { 
+    {
+        private static int currentLevel = 0;
         public static void LevelCompleted()
         {
-            Trace.WriteLine("FLAG HIT !!!!!!!!!!");
+            MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() => {
+                LoadScene(currentLevel + 1);
+            }));
         }
 
         public static void LoadScene(int toLoad)
         {
+            ClearScene();
             MainWindow.canvas.RenderTransform = MainWindow.cameraTransform;
 
             MapLoader.LoadMap(toLoad);
+            currentLevel = toLoad;
 
             //physical entities go here
             WorldData.entities.Add(new Player(
