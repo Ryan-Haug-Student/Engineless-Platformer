@@ -15,11 +15,15 @@ namespace EnginelessPhysics.src.game
     public static class GameManager
     {
         private static int currentLevel = 0;
+
+        //this is to be set manually based on number of levels for a win screen
+        private static int levelCount = 3;
         public static void LevelCompleted()
         {
-            MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() => {
-                LoadScene(currentLevel + 1);
-            }));
+            if (currentLevel < levelCount)
+                MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() => {
+                    LoadScene(currentLevel + 1);
+                }));
         }
 
         public static void LoadScene(int toLoad)
