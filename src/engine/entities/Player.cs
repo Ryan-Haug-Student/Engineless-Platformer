@@ -151,7 +151,7 @@ namespace EnginelessPhysics.src.engine.entities
         {
             if (Vector2.Distance(targetedPoint, position) > 30f) //based on distance either make the grapple weaker or stronger
                 velocity += Vector2.Distance(targetedPoint, position) < 140f
-                    ? (targetedPoint - position) * .8f : (targetedPoint - position) * 1.2f;
+                    ? (targetedPoint - position) : (targetedPoint - position) * 1.2f;
         }
 
         private void Reset()
