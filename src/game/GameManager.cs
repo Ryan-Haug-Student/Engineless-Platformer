@@ -1,14 +1,6 @@
 ﻿using EnginelessPhysics.src.engine;
 using EnginelessPhysics.src.engine.entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace EnginelessPhysics.src.game
 {
@@ -21,7 +13,8 @@ namespace EnginelessPhysics.src.game
         public static void LevelCompleted()
         {
             if (currentLevel < levelCount)
-                MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() => {
+                MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
+                {
                     LoadScene(currentLevel + 1);
                 }));
         }

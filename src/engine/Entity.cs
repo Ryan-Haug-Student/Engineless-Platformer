@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 using System.Windows.Controls;
 using System.Windows.Shapes;
-using System.Windows.Media;
-
-using EnginelessPhysics;
-using EnginelessPhysics.src.engine.entities;
 
 namespace EnginelessPhysics.src.engine
 {

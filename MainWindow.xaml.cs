@@ -1,16 +1,12 @@
 ﻿using EnginelessPhysics.src.engine;
 using EnginelessPhysics.src.engine.entities;
-using EnginelessPhysics.src.engine.Entities;
 using EnginelessPhysics.src.game;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace EnginelessPhysics
 {
@@ -60,38 +56,38 @@ namespace EnginelessPhysics
 
         private void StartPhysics()
         {
-                Task.Run(async () =>
+            Task.Run(async () =>
+            {
+                //keep running between levels
+                while (true)
                 {
-                    //keep running between levels
-                    while (true)
+                    gameTimer = Stopwatch.StartNew();
+                    double lastTime = gameTimer.Elapsed.TotalSeconds;
+                    double fixedDt = 1.0 / 60.0; // 60 Hz
+
+                    while (physicsRunning)
                     {
-                        gameTimer = Stopwatch.StartNew();
-                        double lastTime = gameTimer.Elapsed.TotalSeconds;
-                        double fixedDt = 1.0 / 60.0; // 60 Hz
+                        double currentTime = gameTimer.Elapsed.TotalSeconds;
+                        double deltaTime = currentTime - lastTime;
+                        lastTime = currentTime;
 
-                        while (physicsRunning)
+                        accumulator += deltaTime;
+
+                        while (accumulator >= fixedDt)
                         {
-                            double currentTime = gameTimer.Elapsed.TotalSeconds;
-                            double deltaTime = currentTime - lastTime;
-                            lastTime = currentTime;
-
-                            accumulator += deltaTime;
-
-                            while (accumulator >= fixedDt)
+                            foreach (var entity in WorldData.entities)
                             {
-                                foreach (var entity in WorldData.entities)
-                                {
-                                    entity.previousPosition = entity.position;
-                                    entity.update(fixedDt);
-                                }
-
-                                accumulator -= fixedDt;
+                                entity.previousPosition = entity.position;
+                                entity.update(fixedDt);
                             }
 
-                            await Task.Delay(1);
+                            accumulator -= fixedDt;
                         }
+
+                        await Task.Delay(1);
                     }
-                });
+                }
+            });
         }
 
         //to be called by the player to be able to use interpolated position
@@ -157,7 +153,7 @@ namespace EnginelessPhysics
 
         //main menu buttons
         //===============================================================
-        
+
         private void StartButtonClicked(object sender, RoutedEventArgs e)
         {
             _origContent = Content;

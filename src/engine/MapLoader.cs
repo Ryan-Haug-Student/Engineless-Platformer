@@ -1,15 +1,9 @@
-﻿using EnginelessPhysics.src.engine.entities;
-using EnginelessPhysics.src.engine.Entities;
+﻿using EnginelessPhysics.src.engine.Entities;
 using EnginelessPhysics.src.game.boards;
-using System.Diagnostics;
-using System.Globalization;
 using System.Numerics;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace EnginelessPhysics.src.engine
 {
@@ -17,8 +11,8 @@ namespace EnginelessPhysics.src.engine
     {
         public static void LoadMap(int toLoad)
         {
-            int windowHeight =(int) MainWindow.canvas.ActualHeight;
-            int windowWidth = (int) MainWindow.canvas.ActualWidth;
+            int windowHeight = (int)MainWindow.canvas.ActualHeight;
+            int windowWidth = (int)MainWindow.canvas.ActualWidth;
 
             //get the correct board to load
             Tiles._tiles[,]? board = null;
@@ -28,7 +22,7 @@ namespace EnginelessPhysics.src.engine
             switch (toLoad)
             {
                 case 0:
-                    board = LevelZero.board; 
+                    board = LevelZero.board;
                     break;
                 case 1:
                     board = LevelOne.board;
@@ -72,15 +66,15 @@ namespace EnginelessPhysics.src.engine
                         float posY = MathF.Round(y * tileSize);
                         Color tileColor = board[y, x].GetBrush();
 
-                        int x1 = (int) posX;
-                        int x2 = (int) (posX + tileSize);
+                        int x1 = (int)posX;
+                        int x2 = (int)(posX + tileSize);
 
-                        int y1 = (int) posY;
-                        int y2 = (int) (posY + tileSize);
+                        int y1 = (int)posY;
+                        int y2 = (int)(posY + tileSize);
 
                         bitmap.FillRectangle(x1, y1, x2, y2, tileColor);
 
-                        switch (board[y, x]) 
+                        switch (board[y, x])
                         {
                             case Tiles._tiles.GRAPPLE:
                                 WorldData.grapplePoints.Add(new Vector2(posX, posY));
@@ -106,7 +100,7 @@ namespace EnginelessPhysics.src.engine
                             default: //assume ground
                                 WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
                                 break;
-                        }         
+                        }
                     }
                 }
             }

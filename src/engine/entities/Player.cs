@@ -1,18 +1,9 @@
 ﻿using EnginelessPhysics.src.engine.Entities;
-using EnginelessPhysics.src.game.boards;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Shell;
 
 namespace EnginelessPhysics.src.engine.entities
 {
@@ -91,8 +82,8 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.Space: jumpPressed = false; break; 
-                case Key.E: grapplePressed = false; break; 
+                case Key.Space: jumpPressed = false; break;
+                case Key.E: grapplePressed = false; break;
 
                 case Key.A: leftPressed = false; break;
                 case Key.D: rightPressed = false; break;
@@ -135,7 +126,7 @@ namespace EnginelessPhysics.src.engine.entities
                     {   //push the creation to UI thread
                         MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
                         {
-                            target = new Target(p, WorldData.tileScale /2);
+                            target = new Target(p, WorldData.tileScale / 2);
                             MainWindow.canvas.Children.Add(target.sprite);
                             target.Draw();
                         }));

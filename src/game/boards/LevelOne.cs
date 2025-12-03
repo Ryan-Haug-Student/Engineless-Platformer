@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using EnginelessPhysics.src.game.boards;
-
-namespace EnginelessPhysics.src.game.boards
+﻿namespace EnginelessPhysics.src.game.boards
 {
     public class LevelOne
     {

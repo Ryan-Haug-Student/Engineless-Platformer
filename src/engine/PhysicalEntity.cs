@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Automation;
+﻿using System.Numerics;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace EnginelessPhysics.src.engine
@@ -78,7 +70,7 @@ namespace EnginelessPhysics.src.engine
                     futurePos.X < entity.position.X + entity.scale.X &&
                     futurePos.X + scale.X > entity.position.X &&
                     position.Y < entity.position.Y + entity.scale.Y &&
-                    position.Y + scale.Y > entity.position.Y) 
+                    position.Y + scale.Y > entity.position.Y)
                 { velocity.X = 0; }
 
                 //vertical collisions
@@ -124,7 +116,7 @@ namespace EnginelessPhysics.src.engine
 
         public virtual void OnCollisionEnter(PhysicalEntity collider)
         {
-            
+
         }
 
         // interpolate is a dynamic draw for smooth movement

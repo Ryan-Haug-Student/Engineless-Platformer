@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Reflection;
-using System.Windows.Media;
-using System.Windows.Navigation;
+﻿using System.Windows.Media;
 
 namespace EnginelessPhysics.src.game.boards
 {

@@ -1,11 +1,5 @@
 ﻿using EnginelessPhysics.src.engine.entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -39,7 +33,8 @@ namespace EnginelessPhysics.src.engine.Entities
         public override void OnCollisionEnter(PhysicalEntity collider)
         {
             if (collider is Player)
-                MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() => { 
+                MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
+                {
                     Destroy();
                 }));
         }

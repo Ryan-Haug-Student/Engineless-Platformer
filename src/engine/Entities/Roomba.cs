@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Numerics;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -13,14 +6,14 @@ namespace EnginelessPhysics.src.engine.Entities
 {
     public class Roomba : PhysicalEntity
     {
-        Vector2 moveDir = new Vector2 (1, 0);
+        Vector2 moveDir = new Vector2(1, 0);
         float moveSpeed = 200f;
 
         float maxY = 10000f;
 
         public Roomba(Vector2 pos)
         {
-            position = pos ;
+            position = pos;
             scale = new Vector2(WorldData.tileScale, WorldData.tileScale / 2);
 
             sprite = new Rectangle

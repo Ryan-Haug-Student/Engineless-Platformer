@@ -1,11 +1,6 @@
 ﻿using EnginelessPhysics.src.engine.entities;
 using EnginelessPhysics.src.game;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -13,7 +8,7 @@ namespace EnginelessPhysics.src.engine.Entities
 {
     public class Flag : PhysicalEntity
     {
-        public Flag(Vector2 pos) 
+        public Flag(Vector2 pos)
         {
             float tileSize = WorldData.tileScale;
 

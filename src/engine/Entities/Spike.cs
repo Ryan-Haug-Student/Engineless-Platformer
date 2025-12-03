@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -35,6 +29,6 @@ namespace EnginelessPhysics.src.engine.Entities
             };
         }
 
-        public override void update(double deltaTime){}
+        public override void update(double deltaTime) { }
     }
 }
