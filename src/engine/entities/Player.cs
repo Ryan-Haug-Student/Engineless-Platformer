@@ -72,6 +72,7 @@ namespace EnginelessPhysics.src.engine.entities
                     jumpPressed = false;
                     grapplePressed = false;
 
+                    velocity = Vector2.Zero;
                     position = spawnPos;
                     lives--;
                 }
