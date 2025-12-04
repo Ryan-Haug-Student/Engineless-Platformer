@@ -52,6 +52,8 @@ namespace EnginelessPhysics
             double alpha = Math.Clamp(accumulator / fixedDt, 0.0, 1.0);
             foreach (var entity in WorldData.entities)
                 entity.Interpolate(alpha);
+
+            Trace.WriteLine(GameManager.currencyCount);
         }
 
         private void StartPhysics()

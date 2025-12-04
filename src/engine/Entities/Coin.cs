@@ -1,4 +1,5 @@
 ﻿using EnginelessPhysics.src.engine.entities;
+using EnginelessPhysics.src.game;
 using System.Numerics;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -35,6 +36,7 @@ namespace EnginelessPhysics.src.engine.Entities
             if (collider is Player)
                 MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
                 {
+                    GameManager.currencyCount++;
                     Destroy();
                 }));
         }

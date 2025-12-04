@@ -66,7 +66,12 @@ namespace EnginelessPhysics.src.engine.entities
         {
             if (collider is Spike || collider is Roomba)
                 if (lives > 1)
-                {
+                {   //undo inputs to stop player from immediately running off platform
+                    leftPressed = false;
+                    rightPressed = false;
+                    jumpPressed = false;
+                    grapplePressed = false;
+
                     position = spawnPos;
                     lives--;
                 }
@@ -120,14 +125,10 @@ namespace EnginelessPhysics.src.engine.entities
             }
 
             if (jumpPressed && grounded)
-            {
                 velocity.Y = -jumpForce * 1000 * (float)dt;
-            }
 
             if (grapplePressed && targeted)
-            {
                 Grapple();
-            }
         }
 
         private void CheckForGrapple()

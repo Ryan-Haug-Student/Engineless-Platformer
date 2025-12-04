@@ -10,6 +10,9 @@ namespace EnginelessPhysics.src.game
 
         //this is to be set manually based on number of levels for a win screen
         private static int levelCount = 3;
+
+        public static int currencyCount = 0;
+
         public static void LevelCompleted()
         {
             if (currentLevel < levelCount)
