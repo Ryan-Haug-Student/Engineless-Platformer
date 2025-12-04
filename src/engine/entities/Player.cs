@@ -1,4 +1,5 @@
 ﻿using EnginelessPhysics.src.engine.Entities;
+using EnginelessPhysics.src.game;
 using System.Numerics;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,14 +10,18 @@ namespace EnginelessPhysics.src.engine.entities
 {
     public class Player : PhysicalEntity
     {
-        //movement vars
+        //stats
         public float playerSpeed = 180f;
         public float jumpForce = 65f;
+
+        public float lives = 4f;
 
         public float grappleDistance = 170f;
         private bool targeted = false;
         private Vector2 targetedPoint = Vector2.Zero;
         public static Target? target;
+
+        public static Vector2 spawnPos;
 
         //input state (key held)
         private bool leftPressed;
@@ -35,6 +40,7 @@ namespace EnginelessPhysics.src.engine.entities
             sprite.Height = scale.Y;
 
             position = Pos;
+            spawnPos = Pos;
             previousPosition = position;
         }
 
@@ -59,7 +65,14 @@ namespace EnginelessPhysics.src.engine.entities
         public override void OnCollisionEnter(PhysicalEntity collider)
         {
             if (collider is Spike || collider is Roomba)
-                MainWindow.LoadMainMenu();
+                if (lives > 1)
+                {
+                    position = spawnPos;
+                    lives--;
+                }
+                else 
+                { MainWindow.LoadMainMenu(); }
+                    
         }
 
         //player input, using bools to keep smooth and continous movement even if opposite key is pressed

@@ -14,7 +14,7 @@ namespace EnginelessPhysics.src.game
         {
             if (currentLevel < levelCount)
                 MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
-                {
+                { //force push to main thread becaues usually called by phyiscal entity
                     LoadScene(currentLevel + 1);
                 }));
         }

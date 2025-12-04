@@ -17,8 +17,8 @@ namespace EnginelessPhysics.src.engine.Entities
         {
             position = pos + new Vector2(scale, scale) /2;
             sprite = new Ellipse();
-            sprite.Fill = Brushes.White;
-            sprite.Stroke = Brushes.DarkRed;
+            sprite.Fill = Brushes.CadetBlue;
+            sprite.Stroke = Brushes.Blue;
             sprite.StrokeThickness = 4;
 
             sprite.Width = scale;
