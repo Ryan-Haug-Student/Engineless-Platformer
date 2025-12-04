@@ -16,6 +16,22 @@ Im using this primarily in maploader.cs to create a new image of the map for pre
 > ## Input Handling
 To handle input, on the mainwindow.xaml file I added onkeydown and onkeyup events which on the mainwindow.cs file will call their respective functions. From there we pass the keyEventArgs into functions where neccesary, currently only the player.
 
-> ## Colision Detection - NOT IMPLEMENTED YET
-I plan to add collision detection through AABB colision detection, if there proves to be to many objects for this algorithm I will add spatial partitioning which seperates all objects into a grid to allow for less overhead when calculating
-due to less objects being computed. AABB works by checking against every object if any object is close enough to the position + width, and if it is it will be colliding.
+> ## Colision Detection 
+This is currently handled in two ways
+1. for physical entities to non physical I run two AABB algorithm checks for the x and y axis, and stop velocity and snap position accordingly, I check both seperately so that way walls arent "sticky"
+2. for 2 physical entities I just run one AABB check and trigger a onCollisionEnter function for both, allowing the player to take damage, the roomba to swap direction accordingly, and the flag to transition to the next level
+
+> ## Sprite handling
+I plan on adding a animation compenent, havent completed that yet. However sprites themselves are either assigned in the creation for sprites that only have one option, pretty much everything but the floor. but for the ground I check adjascent tiles and add values depending on which are present or not, I then map that final value to a matching tile which creates a seemless ground
+
+> ## Camera Movement
+The camera following the player was simple to implement, you can just add a transform to the window position, so I just added that transformation to the player position.
+
+> ## Grappling 
+For the grapple system to work I created a new list of every point which the player can grapple too, I then loop through that and check for the closest one, and if that one is within range, then the player can grapple, which adds velocity based on distance
+
+> ## Player Grounding
+Due to how I handle collisions I can ensure that when the player hits the ground, the Y velocity is always set to zero, and as such I can check the previous velocity to see if the player was moving up or down and if its down I can set grounded to true, creating reliable grounding for the player
+
+> ## World Data
+Because I run physics on a seperate thread to ensure a smooth game interface, I have to have a seperate class that is accessable on all threads instead of only the UI thread for data such as a list of entities
