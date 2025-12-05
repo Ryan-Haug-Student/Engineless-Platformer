@@ -160,6 +160,7 @@ namespace EnginelessPhysics.src.engine.entities
             {   //push the deletion to UI thread
                 MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
                 {
+#pragma warning disable CS8602
                     target.Destroy();
                 }));
                 targetedPoint = Vector2.Zero;
@@ -170,7 +171,7 @@ namespace EnginelessPhysics.src.engine.entities
         private void Grapple()
         {
             if (Vector2.Distance(targetedPoint, position) > 30f) //based on distance either make the grapple weaker or stronger
-                velocity += Vector2.Distance(targetedPoint, position) < 140f
+                velocity += Vector2.Distance(targetedPoint, position) < 120f
                     ? (targetedPoint - position) : (targetedPoint - position) * 1.2f;
         }
 

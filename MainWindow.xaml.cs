@@ -26,6 +26,8 @@ namespace EnginelessPhysics
         public static object? _origContent;
         public static GameCanvas canvas = new GameCanvas();
         public static GameCanvas uiCanvas = new GameCanvas();
+        private static Grid root = new Grid();
+
         public static TranslateTransform cameraTransform = new TranslateTransform();
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
@@ -43,6 +45,10 @@ namespace EnginelessPhysics
         {
             InitializeComponent();
             Title = "physics now?????";
+
+            //create a grid to overlay the gamecanvas and uicanvas to keep UI onscreen
+            root.Children.Add(canvas);
+            root.Children.Add(uiCanvas);
 
             StartPhysics();
         }
@@ -144,11 +150,6 @@ namespace EnginelessPhysics
         private void StartButtonClicked(object sender, RoutedEventArgs e)
         {
             _origContent = Content;
-
-            //create a grid to overlay the gamecanvas and uicanvas to keep UI onscreen
-            var root = new Grid();
-            root.Children.Add(canvas);
-            root.Children.Add(uiCanvas);
 
             Content = root;
             canvas.Loaded += (s, e) => GameManager.LoadScene(0);
