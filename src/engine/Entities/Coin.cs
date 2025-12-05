@@ -37,6 +37,7 @@ namespace EnginelessPhysics.src.engine.Entities
                 MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     GameManager.currencyCount++;
+                    GameManager.UpdateUI();
                     Destroy();
                 }));
         }

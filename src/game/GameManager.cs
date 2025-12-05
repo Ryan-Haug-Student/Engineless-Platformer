@@ -1,6 +1,7 @@
 ﻿using EnginelessPhysics.src.engine;
 using EnginelessPhysics.src.engine.entities;
 using System.Numerics;
+using System.Windows.Controls;
 
 namespace EnginelessPhysics.src.game
 {
@@ -13,12 +14,18 @@ namespace EnginelessPhysics.src.game
 
         public static int currencyCount = 0;
 
+        // UI components
+        public static TextBlock currencyDisp = new TextBlock { };
+        public static TextBlock livesDisp = new TextBlock { };
+        public static TextBlock levelDisp = new TextBlock { };
+
         public static void LevelCompleted()
         {
             if (currentLevel < levelCount)
                 MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
                 { //force push to main thread becaues usually called by phyiscal entity
                     LoadScene(currentLevel + 1);
+                    UpdateUI();
                 }));
         }
 
@@ -40,12 +47,15 @@ namespace EnginelessPhysics.src.game
             foreach (PhysicalEntity entity in WorldData.entities)
                 MainWindow.canvas.Children.Add(entity.sprite);
 
+            LoadUI();
+
             MainWindow.physicsRunning = true;
         }
 
         public static void ClearScene()
         {
             MainWindow.canvas.Children.Clear();
+            MainWindow.uiCanvas.Children.Clear();
             MainWindow.player = null;
 
             WorldData.entities.Clear();
@@ -56,6 +66,30 @@ namespace EnginelessPhysics.src.game
             MainWindow.gameTimer.Stop(); MainWindow.gameTimer.Reset();
 
             MainWindow.physicsRunning = false;
+        }
+
+        public static void LoadUI()
+        {
+            UpdateUI();
+
+            Canvas.SetLeft(currencyDisp, 10);
+            Canvas.SetTop(currencyDisp, 10);
+            MainWindow.uiCanvas.Children.Add(currencyDisp);
+
+            Canvas.SetLeft(levelDisp, 10);
+            Canvas.SetTop(levelDisp, 50);
+            MainWindow.uiCanvas.Children.Add(levelDisp);
+
+            Canvas.SetLeft(livesDisp, 10);
+            Canvas.SetTop(livesDisp, 90);
+            MainWindow.uiCanvas.Children.Add(livesDisp);
+        }
+
+        public static void UpdateUI()
+        {
+            currencyDisp.Text = $"time - {currencyCount}";
+            levelDisp.Text = $"level - {currentLevel}";
+            livesDisp.Text = $"lives - {MainWindow.player.lives}";
         }
     }
 }

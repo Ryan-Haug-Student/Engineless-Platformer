@@ -75,6 +75,11 @@ namespace EnginelessPhysics.src.engine.entities
                     velocity = Vector2.Zero;
                     position = spawnPos;
                     lives--;
+
+                    MainWindow.canvas.Dispatcher.BeginInvoke(() =>
+                    {
+                        GameManager.UpdateUI();
+                    });
                 }
                 else 
                 { MainWindow.LoadMainMenu(); }

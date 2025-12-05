@@ -25,6 +25,7 @@ namespace EnginelessPhysics
     {
         public static object? _origContent;
         public static GameCanvas canvas = new GameCanvas();
+        public static GameCanvas uiCanvas = new GameCanvas();
         public static TranslateTransform cameraTransform = new TranslateTransform();
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
@@ -144,8 +145,12 @@ namespace EnginelessPhysics
         {
             _origContent = Content;
 
-            canvas = new GameCanvas();
-            Content = canvas;
+            //create a grid to overlay the gamecanvas and uicanvas to keep UI onscreen
+            var root = new Grid();
+            root.Children.Add(canvas);
+            root.Children.Add(uiCanvas);
+
+            Content = root;
             canvas.Loaded += (s, e) => GameManager.LoadScene(0);
 
             CompositionTarget.Rendering += UpdateScreen;
