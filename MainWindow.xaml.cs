@@ -119,21 +119,7 @@ namespace EnginelessPhysics
                 player.OnKeyDown(e);
 
             if (e.Key == Key.Escape)
-            {
                 LoadMainMenu();
-            }
-            //testing buttons to quick load levels
-            else if (e.Key == Key.D2)
-            {
-                GameManager.ClearScene();
-                GameManager.LoadScene(2);
-            }
-            else if (e.Key == Key.D3)
-            {
-                GameManager.ClearScene();
-                GameManager.LoadScene(3);
-            }
-
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
