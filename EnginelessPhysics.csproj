@@ -9,6 +9,52 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\game\sprites\enemies\Roomba.png" />
+    <None Remove="src\game\sprites\enemies\spikes.png" />
+    <None Remove="src\game\sprites\ground\groundDecor.png" />
+    <None Remove="src\game\sprites\ground\tileMap.png" />
+    <None Remove="src\game\sprites\interactables\Portal.png" />
+    <None Remove="src\game\sprites\interactables\SpaceFragment.png" />
+    <None Remove="src\game\sprites\interactables\TimeFragment.png" />
+    <None Remove="src\game\sprites\player\Wisp.png" />
+    <None Remove="src\game\sprites\player\WispFall.png" />
+    <None Remove="src\game\sprites\player\WispWalk.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="src\game\sprites\enemies\Roomba.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\enemies\spikes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\ground\groundDecor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\ground\tileMap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\interactables\Portal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\interactables\SpaceFragment.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\interactables\TimeFragment.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\player\Wisp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\player\WispFall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\player\WispWalk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="WriteableBitmapEx" Version="1.6.9" />
   </ItemGroup>
 

@@ -46,6 +46,10 @@ namespace EnginelessPhysics
             InitializeComponent();
             Title = "physics now?????";
 
+            // Global pixel-art settings
+            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
+            RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
+
             //create a grid to overlay the gamecanvas and uicanvas to keep UI onscreen
             root.Children.Add(canvas);
             root.Children.Add(uiCanvas);
