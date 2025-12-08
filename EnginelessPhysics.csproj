@@ -12,10 +12,4 @@
     <PackageReference Include="WriteableBitmapEx" Version="1.6.9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="src\game\sprites\ground\" />
-    <Folder Include="src\game\sprites\interactables\" />
-    <Folder Include="src\game\sprites\player\" />
-  </ItemGroup>
-
 </Project>
