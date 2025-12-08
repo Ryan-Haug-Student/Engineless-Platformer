@@ -2,12 +2,15 @@
 using EnginelessPhysics.src.game;
 using System.Numerics;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace EnginelessPhysics.src.engine.Entities
 {
     public class Coin : PhysicalEntity
     {
+        private static BitmapImage img = new BitmapImage(new Uri("src/game/sprites/interactables/TimeFragment.png", UriKind.Relative));
+
         public Coin(Vector2 tilePos)
         {
             float tileScale = WorldData.tileScale;
@@ -21,11 +24,11 @@ namespace EnginelessPhysics.src.engine.Entities
 
             scale = new Vector2(coinScale, coinScale);
 
-            sprite = new Ellipse
+            sprite = new Rectangle
             {
                 Width = coinScale,
                 Height = coinScale,
-                Fill = Brushes.Yellow
+                Fill = new ImageBrush(img)
             };
         }
 

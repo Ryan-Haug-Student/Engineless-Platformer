@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="src\game\sprites\enemies\Roomba.png" />
     <None Remove="src\game\sprites\enemies\spikes.png" />
+    <None Remove="src\game\sprites\ground\bg.png" />
     <None Remove="src\game\sprites\ground\groundDecor.png" />
     <None Remove="src\game\sprites\ground\tileMap.png" />
     <None Remove="src\game\sprites\interactables\Portal.png" />
@@ -19,6 +20,12 @@
     <None Remove="src\game\sprites\player\Wisp.png" />
     <None Remove="src\game\sprites\player\WispFall.png" />
     <None Remove="src\game\sprites\player\WispWalk.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="src\game\sprites\ground\bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

@@ -2,6 +2,7 @@
 using EnginelessPhysics.src.game;
 using EnginelessPhysics.src.game.boards;
 using System.Numerics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -53,7 +54,7 @@ namespace EnginelessPhysics.src.engine
 
             bitmap.Lock();
             //make the background solid light blue
-            bitmap.FillRectangle(0, 0, (int)bitmap.Width, (int)bitmap.Height, Colors.LightBlue);
+            bitmap.FillRectangle(0, 0, (int)bitmap.Width, (int)bitmap.Height, (Color)ColorConverter.ConvertFromString("#9AE1F4"));
 
             for (int y = 0; y < rows; y++)
             {
@@ -62,10 +63,18 @@ namespace EnginelessPhysics.src.engine
                     //only draw tiles that have content
                     if (board[y, x] != Tiles._tiles.AIR)
                     {
+                        // bitmask: top=1, right=2, bottom=4, left=8
+                        int tileIndex = 0;
+                        if (y > 0 && board[y - 1, x] == Tiles._tiles.GROUND) tileIndex |= 4;         // top
+                        if (x < cols - 1 && board[y, x + 1] == Tiles._tiles.GROUND) tileIndex |= 8;  // right
+                        if (y < rows - 1 && board[y + 1, x] == Tiles._tiles.GROUND) tileIndex |= 1;  // bottom
+                        if (x > 0 && board[y, x - 1] == Tiles._tiles.GROUND) tileIndex |= 2;         // left
+
+
                         //round positions to ensure that there is no gaps between tiles
                         float posX = MathF.Round(x * tileSize);
                         float posY = MathF.Round(y * tileSize);
-                        Color tileColor = board[y, x].GetBrush();
+                        WriteableBitmap tileSprite = board[y, x].GetImage(tileIndex);
 
                         int x1 = (int)posX;
                         int x2 = (int)(posX + tileSize);
@@ -73,7 +82,10 @@ namespace EnginelessPhysics.src.engine
                         int y1 = (int)posY;
                         int y2 = (int)(posY + tileSize);
 
-                        bitmap.FillRectangle(x1, y1, x2, y2, tileColor);
+                        bitmap.Blit(new Rect(x1, y1, x2 - x1, y2 - y1),
+                            tileSprite,
+                            new Rect(0, 0, tileSprite.PixelWidth, tileSprite.PixelHeight),
+                            WriteableBitmapExtensions.BlendMode.Alpha);
 
                         switch (board[y, x])
                         {
