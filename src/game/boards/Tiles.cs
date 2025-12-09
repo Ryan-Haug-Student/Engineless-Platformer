@@ -58,21 +58,21 @@ namespace EnginelessPhysics.src.game.boards
             int spriteIndex = tileIndex switch
             {
                 0 => 3,   // floating single
-                1 => 1,   // top center
-                2 => 6,   // right wall
-                3 => 2,   // top right
-                4 => 8,   // bottom center
-                5 => 5,   // surrounded
-                6 => 9,   // bottom right
-                7 => 5,   // surrounded
-                8 => 4,   // left wall
-                9 => 0,   // top left
-                10 => 5,   // left + right → surrounded
-                11 => 5,   // top + left + right → surrounded
-                12 => 7,   // bottom left
-                13 => 5,   // top + left + bottom → surrounded
-                14 => 5,   // bottom + left + right → surrounded
-                15 => 5,   // all sides → surrounded
+                1 => 8,   // bottom center
+                2 => 10,  // floating left endcap
+                3 => 7,   // bottom right
+                4 => 1,   // top center
+                5 => 5,   // middle center NA default center
+                6 => 0,   // top left
+                7 => 4,   // left wall
+                8 => 12,  // floating right
+                9 => 9,   // right bottom
+                10 => 11, // floating center
+                11 => 8,  // bottom center
+                12 => 2,  // top right
+                13 => 6,  // right wall
+                14 => 1,  // top center
+
                 _ => 5,
             };
 

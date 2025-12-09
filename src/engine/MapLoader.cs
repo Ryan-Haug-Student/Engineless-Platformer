@@ -65,10 +65,10 @@ namespace EnginelessPhysics.src.engine
                     {
                         // bitmask: top=1, right=2, bottom=4, left=8
                         int tileIndex = 0;
-                        if (y > 0 && board[y - 1, x] == Tiles._tiles.GROUND) tileIndex |= 4;         // top
-                        if (x < cols - 1 && board[y, x + 1] == Tiles._tiles.GROUND) tileIndex |= 8;  // right
-                        if (y < rows - 1 && board[y + 1, x] == Tiles._tiles.GROUND) tileIndex |= 1;  // bottom
-                        if (x > 0 && board[y, x - 1] == Tiles._tiles.GROUND) tileIndex |= 2;         // left
+                        if (y > 0 && board[y - 1, x] == Tiles._tiles.GROUND) tileIndex |= 1;         // top
+                        if (x < cols - 1 && board[y, x + 1] == Tiles._tiles.GROUND) tileIndex |= 2;  // right
+                        if (y < rows - 1 && board[y + 1, x] == Tiles._tiles.GROUND) tileIndex |= 4;  // bottom
+                        if (x > 0 && board[y, x - 1] == Tiles._tiles.GROUND) tileIndex |= 8;         // left
 
 
                         //round positions to ensure that there is no gaps between tiles
