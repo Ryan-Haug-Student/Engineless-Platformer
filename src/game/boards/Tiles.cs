@@ -73,7 +73,7 @@ namespace EnginelessPhysics.src.game.boards
                 13 => 6,  // right wall
                 14 => 1,  // top center
 
-                _ => 5,
+                _ => 5,   // default to full for any possible combinations not accounted for
             };
 
             return new WriteableBitmap(groundSprites[spriteIndex]);
