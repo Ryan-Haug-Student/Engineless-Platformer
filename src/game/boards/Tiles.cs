@@ -30,6 +30,10 @@ namespace EnginelessPhysics.src.game.boards
             new CroppedBitmap(groundSheet, new Int32Rect(0,  48, 16, 16)),  // row 3, col 0
             new CroppedBitmap(groundSheet, new Int32Rect(16, 48, 16, 16)),  // row 3, col 1
             new CroppedBitmap(groundSheet, new Int32Rect(32, 48, 16, 16)),  // row 3, col 2
+
+            //these are down here instead of indexed in the right area because they were added late
+            new CroppedBitmap(groundSheet, new Int32Rect(48, 16, 16, 16)),   // row 1, col 3
+            new CroppedBitmap(groundSheet, new Int32Rect(48, 32, 16, 16)),   // row 2, col 3
         };
 
         public enum _tiles
@@ -61,8 +65,8 @@ namespace EnginelessPhysics.src.game.boards
                 1 => 8,   // bottom center
                 2 => 10,  // floating left endcap
                 3 => 7,   // bottom right
-                4 => 1,   // top center
-                5 => 5,   // middle center NA default center
+                4 => 13,   // top center
+                5 => 14,   // middle center NA default center
                 6 => 0,   // top left
                 7 => 4,   // left wall
                 8 => 12,  // floating right
