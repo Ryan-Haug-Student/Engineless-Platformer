@@ -1,9 +1,12 @@
-﻿using EnginelessPhysics.src.engine.Entities;
+﻿using EnginelessPhysics.src.engine.Components;
+using EnginelessPhysics.src.engine.Entities;
 using EnginelessPhysics.src.game;
+using System.ComponentModel;
 using System.Numerics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace EnginelessPhysics.src.engine.entities
@@ -30,6 +33,10 @@ namespace EnginelessPhysics.src.engine.entities
         private bool jumpPressed;
         private bool grapplePressed;
 
+        //animations
+        private Animator animator;
+        private BitmapImage playerIdle = new BitmapImage(new Uri("src/game/sprites/player/Wisp.png", UriKind.Relative));
+
         public Player(Vector2 Pos, Vector2 Scale)
         {
             sprite = new Rectangle();
@@ -42,6 +49,9 @@ namespace EnginelessPhysics.src.engine.entities
             position = Pos;
             spawnPos = Pos;
             previousPosition = position;
+
+            animator = new Animator(this, new Vector2(32, 48));
+            animator.Play(playerIdle, 6, 1000, true);
         }
 
         public override void update(double deltaTime)
@@ -97,7 +107,7 @@ namespace EnginelessPhysics.src.engine.entities
                 case Key.A: leftPressed = true; break;
                 case Key.D: rightPressed = true; break;
 
-                case Key.R: Reset(); break;
+                case Key.R: animator.flipped = animator.flipped ? false : true; break;
                 case Key.P: MainWindow.physicsRunning = MainWindow.physicsRunning ? false : true; break;
             }
         }
@@ -173,12 +183,6 @@ namespace EnginelessPhysics.src.engine.entities
             if (Vector2.Distance(targetedPoint, position) > 30f) //based on distance either make the grapple weaker or stronger
                 velocity += Vector2.Distance(targetedPoint, position) < 120f
                     ? (targetedPoint - position) : (targetedPoint - position) * 1.2f;
-        }
-
-        private void Reset()
-        {
-            velocity = Vector2.Zero;
-            position = new Vector2(50, 100);
         }
     }
 }

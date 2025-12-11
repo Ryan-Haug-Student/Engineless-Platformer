@@ -1,5 +1,8 @@
-﻿using System.Numerics;
+﻿using EnginelessPhysics.src.engine.Components;
+using System.Numerics;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace EnginelessPhysics.src.engine.Entities
@@ -9,7 +12,12 @@ namespace EnginelessPhysics.src.engine.Entities
         Vector2 moveDir = new Vector2(1, 0);
         float moveSpeed = 200f;
 
+        private Vector2 origPos;
+
         float maxY = 10000f;
+
+        Animator animator;
+        private static BitmapImage activeAnim = new BitmapImage(new Uri("src/game/sprites/enemies/Roomba.png", UriKind.Relative));
 
         public Roomba(Vector2 pos)
         {
@@ -19,9 +27,11 @@ namespace EnginelessPhysics.src.engine.Entities
             sprite = new Rectangle
             {
                 Width = scale.X,
-                Height = scale.Y,
-                Fill = Brushes.DarkRed
+                Height = scale.X,
             };
+
+            animator = new Animator(this, new Vector2(16, 16));
+            animator.Play(activeAnim, 2, 250, true);
         }
 
         public override void update(double deltaTime)
@@ -35,6 +45,8 @@ namespace EnginelessPhysics.src.engine.Entities
             if (velocity.X == 0)
                 moveDir.X *= -1;
 
+            animator.flipped = moveDir.X > 0 ? true : false;
+
             if (position.Y > maxY)
             { //stop object falling to prevent extreme numbers
                 gravity = Vector2.Zero;
@@ -46,6 +58,14 @@ namespace EnginelessPhysics.src.engine.Entities
         {
             if (collider is Roomba)
                 moveDir *= -1;
+        }
+
+        //override so it draws at the correct position due to halved size
+        public override void Interpolate(double alpha)
+        {
+            Vector2 renderPos = Vector2.Lerp(previousPosition, position, (float)alpha);
+            Canvas.SetLeft(sprite, renderPos.X);
+            Canvas.SetTop(sprite, renderPos.Y - scale.Y);
         }
     }
 }
