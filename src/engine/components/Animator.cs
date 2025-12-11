@@ -15,6 +15,8 @@ namespace EnginelessPhysics.src.engine.Components
         private PhysicalEntity targetEntity;
         private Vector2 spriteSize;
 
+        private CancellationTokenSource? cts;
+
         public bool playing;
         public bool flipped;
 
@@ -26,26 +28,34 @@ namespace EnginelessPhysics.src.engine.Components
             spriteSize = scale;
         }
 
-        public async void Play(BitmapImage? anim, int frameCount, int durationMS, bool loop)
+        public async void Play(BitmapImage anim, int frameCount, int durationMS, bool loop)
         {
-            playing = true;
+            // cancel any previous animation
+            cts?.Cancel();
+            cts = new CancellationTokenSource();
+            var token = cts.Token;
 
             for (int i = 0; i < frameCount; i++)
             {
-                if (!playing)
+                if (token.IsCancellationRequested)
                     break;
 
-                //get the next frame from the animation sheet
-                targetEntity.sprite.Fill = new ImageBrush(new CroppedBitmap(anim, 
+                targetEntity.sprite.Fill = new ImageBrush(new CroppedBitmap(anim,
                     new Int32Rect((int)spriteSize.X * i, 0, (int)spriteSize.X, (int)spriteSize.Y)));
 
                 targetEntity.sprite.RenderTransform = new ScaleTransform(flipped ? -1 : 1, 1);
 
-                await Task.Delay(durationMS / frameCount);
+                try { await Task.Delay(durationMS / frameCount, token); }
+                catch (TaskCanceledException) { break; }
             }
 
-            if (loop)
+            if (loop && !token.IsCancellationRequested)
                 Play(anim, frameCount, durationMS, loop);
+        }
+
+        public void Stop()
+        {
+            cts?.Cancel();
         }
     }
 }

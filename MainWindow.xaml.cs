@@ -63,6 +63,9 @@ namespace EnginelessPhysics
             double alpha = Math.Clamp(accumulator / fixedDt, 0.0, 1.0);
             foreach (var entity in WorldData.entities)
                 entity.Interpolate(alpha);
+
+            if (player != null)
+                player.AnimController();
         }
 
         private void StartPhysics()
@@ -156,7 +159,7 @@ namespace EnginelessPhysics
             _origContent = Content;
 
             Content = root;
-            canvas.Loaded += (s, e) => GameManager.LoadScene(0);
+            canvas.Loaded += (s, e) => GameManager.LoadScene(3);
 
             CompositionTarget.Rendering += UpdateScreen;
         }

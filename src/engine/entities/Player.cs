@@ -35,7 +35,11 @@ namespace EnginelessPhysics.src.engine.entities
 
         //animations
         private Animator animator;
-        private BitmapImage playerIdle = new BitmapImage(new Uri("src/game/sprites/player/Wisp.png", UriKind.Relative));
+        private BitmapImage playerIdle = new BitmapImage(new Uri("src/game/sprites/player/Wisp.png", UriKind.Relative));  //6 frames
+        private BitmapImage playerWalk = new BitmapImage(new Uri("src/game/sprites/player/WispWalk.png", UriKind.Relative)); //4 frames
+        private BitmapImage playerFall = new BitmapImage(new Uri("src/game/sprites/player/WispFall.png", UriKind.Relative)); //3 frames
+
+        private int currentAnim = -1;
 
         public Player(Vector2 Pos, Vector2 Scale)
         {
@@ -43,15 +47,15 @@ namespace EnginelessPhysics.src.engine.entities
             sprite.Fill = Brushes.White;
 
             scale = Scale;
-            sprite.Width = scale.X;
-            sprite.Height = scale.Y;
+            sprite.Width = scale.X * 1.2f;
+            sprite.Height = scale.Y * 1.2f;
 
             position = Pos;
             spawnPos = Pos;
             previousPosition = position;
 
             animator = new Animator(this, new Vector2(32, 48));
-            animator.Play(playerIdle, 6, 1000, true);
+            
         }
 
         public override void update(double deltaTime)
@@ -66,8 +70,8 @@ namespace EnginelessPhysics.src.engine.entities
         public override void Interpolate(double alpha)
         {
             Vector2 renderPos = Vector2.Lerp(previousPosition, position, (float)alpha);
-            Canvas.SetLeft(sprite, renderPos.X);
-            Canvas.SetTop(sprite, renderPos.Y);
+            Canvas.SetLeft(sprite, renderPos.X - (scale.X - (scale.X * .8f)));
+            Canvas.SetTop(sprite, renderPos.Y - (scale.Y - (scale.Y * .8f)));
 
             MainWindow.MoveCamera(renderPos);
         }
@@ -107,7 +111,6 @@ namespace EnginelessPhysics.src.engine.entities
                 case Key.A: leftPressed = true; break;
                 case Key.D: rightPressed = true; break;
 
-                case Key.R: animator.flipped = animator.flipped ? false : true; break;
                 case Key.P: MainWindow.physicsRunning = MainWindow.physicsRunning ? false : true; break;
             }
         }
@@ -183,6 +186,29 @@ namespace EnginelessPhysics.src.engine.entities
             if (Vector2.Distance(targetedPoint, position) > 30f) //based on distance either make the grapple weaker or stronger
                 velocity += Vector2.Distance(targetedPoint, position) < 120f
                     ? (targetedPoint - position) : (targetedPoint - position) * 1.2f;
+        }
+
+        public void AnimController()
+        {
+            int newAnim;
+
+            if (velocity.Y > 0) newAnim = 1;        // falling
+            else if (velocity.X != 0) newAnim = 2;   // walking
+            else newAnim = 0;                        // idle
+
+            if (newAnim != currentAnim)
+            {
+                currentAnim = newAnim;
+
+                switch (currentAnim)
+                {
+                    case 0: animator.Play(playerIdle, 6, 1000, true); break;
+                    case 1: animator.Play(playerFall, 3, 500, true); break;
+                    case 2: animator.Play(playerWalk, 4, 500, true); break;
+                }
+            }
+
+            animator.flipped = velocity.X < 0;
         }
     }
 }
