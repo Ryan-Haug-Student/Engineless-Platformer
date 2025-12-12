@@ -96,7 +96,7 @@ namespace EnginelessPhysics.src.engine.entities
                     });
                 }
                 else 
-                { MainWindow.LoadMainMenu(); }
+                { GameManager.currencyCount = 0;  MainWindow.LoadMainMenu(); }
                     
         }
 

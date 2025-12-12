@@ -2,6 +2,7 @@
 using EnginelessPhysics.src.game;
 using EnginelessPhysics.src.game.boards;
 using System.Numerics;
+using System.Security.Cryptography.Xml;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,6 +12,7 @@ namespace EnginelessPhysics.src.engine
 {
     public class MapLoader
     {
+        private static BitmapImage cloud = new BitmapImage(new Uri("src/game/sprites/ground/cloud.png", UriKind.Relative));
         public static void LoadMap(int toLoad)
         {
             int windowHeight = (int)MainWindow.canvas.ActualHeight;
@@ -114,6 +116,21 @@ namespace EnginelessPhysics.src.engine
                                 WorldData.staticEntities.Add(new Tile(new Vector2(posX, posY), tileSize));
                                 break;
                         }
+                    }
+                    else // add some clouds
+                    {
+                        float x1 = x * tileSize;
+                        float y1 = y * tileSize;
+
+                        float x2 = x1 + tileSize;
+                        float y2 = y1 + tileSize;
+
+                        // if its air above y level 6, give a 1/75 chance to draw a cloud
+                        if (new Random().Next(0, 75) == 1 && y < 6)
+                            bitmap.Blit(new Rect(x1, y1, x2 - x1, y2 - y1),
+                                new WriteableBitmap(cloud),
+                                new Rect(0, 0, 16, 16),
+                                WriteableBitmapExtensions.BlendMode.Alpha);
                     }
                 }
             }
