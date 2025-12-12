@@ -38,6 +38,7 @@ namespace EnginelessPhysics.src.engine.entities
         private BitmapImage playerIdle = new BitmapImage(new Uri("src/game/sprites/player/Wisp.png", UriKind.Relative));  //6 frames
         private BitmapImage playerWalk = new BitmapImage(new Uri("src/game/sprites/player/WispWalk.png", UriKind.Relative)); //4 frames
         private BitmapImage playerFall = new BitmapImage(new Uri("src/game/sprites/player/WispFall.png", UriKind.Relative)); //3 frames
+        private BitmapImage playerJump = new BitmapImage(new Uri("src/game/sprites/player/WispJump.png", UriKind.Relative)); //3 frames
 
         private int currentAnim = -1;
 
@@ -243,6 +244,7 @@ namespace EnginelessPhysics.src.engine.entities
             int newAnim;
 
             if (velocity.Y > 0) newAnim = 1;        // falling
+            else if (velocity.Y < 0) newAnim = 3;   // jump
             else if (velocity.X != 0) newAnim = 2;  // walking
             else newAnim = 0;                       // idle
 
@@ -255,6 +257,7 @@ namespace EnginelessPhysics.src.engine.entities
                     case 0: animator.Play(playerIdle, 6, 1000, true); break;
                     case 1: animator.Play(playerFall, 3, 500, true); break;
                     case 2: animator.Play(playerWalk, 4, 500, true); break;
+                    case 3: animator.Play(playerJump, 3, 50, false); break;
                 }
             }
 

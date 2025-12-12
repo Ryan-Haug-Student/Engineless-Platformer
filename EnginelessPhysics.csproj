@@ -20,6 +20,7 @@
     <None Remove="src\game\sprites\interactables\TimeFragment.png" />
     <None Remove="src\game\sprites\player\Wisp.png" />
     <None Remove="src\game\sprites\player\WispFall.png" />
+    <None Remove="src\game\sprites\player\WispJump.png" />
     <None Remove="src\game\sprites\player\WispWalk.png" />
   </ItemGroup>
 
@@ -58,6 +59,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="src\game\sprites\player\WispFall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\game\sprites\player\WispJump.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="src\game\sprites\player\WispWalk.png">
