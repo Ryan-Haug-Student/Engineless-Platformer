@@ -60,6 +60,7 @@ namespace EnginelessPhysics.src.engine.entities
 
         public override void update(double deltaTime)
         {
+            linearFriction = .86f;
             base.update(deltaTime);
 
             Move(deltaTime);
@@ -105,8 +106,8 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.Space: jumpPressed = true; break;
-                case Key.E: grapplePressed = true; break;
+                case Key.Space: case Key.W: jumpPressed = true; break;
+                case Key.LeftShift: grapplePressed = true; break;
 
                 case Key.A: leftPressed = true; break;
                 case Key.D: rightPressed = true; break;
@@ -119,8 +120,8 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.Space: jumpPressed = false; break;
-                case Key.E: grapplePressed = false; break;
+                case Key.Space: case Key.W: jumpPressed = false; break;
+                case Key.LeftShift: grapplePressed = false; break;
 
                 case Key.A: leftPressed = false; break;
                 case Key.D: rightPressed = false; break;

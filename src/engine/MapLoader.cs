@@ -127,9 +127,9 @@ namespace EnginelessPhysics.src.engine
 
                         // if its air above y level 6, give a 1/75 chance to draw a cloud
                         if (new Random().Next(0, 75) == 1 && y < 6)
-                            bitmap.Blit(new Rect(x1, y1, x2 - x1, y2 - y1),
+                            bitmap.Blit(new Rect(x1, y1, x2 - x1, y2 - y2),
                                 new WriteableBitmap(cloud),
-                                new Rect(0, 0, 16, 16),
+                                new Rect(0, 0, 8, 16),
                                 WriteableBitmapExtensions.BlendMode.Alpha);
                     }
                 }
