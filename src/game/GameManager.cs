@@ -39,7 +39,7 @@ namespace EnginelessPhysics.src.game
 
             //physical entities go here
             WorldData.entities.Add(new Player(
-                new Vector2(3750, 0),  //starting pos
+                new Vector2(50, 300),  //starting pos
                 new Vector2(35, 70))); //scale
 
             MainWindow.player = WorldData.entities.OfType<Player>().First();

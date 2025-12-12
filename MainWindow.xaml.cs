@@ -159,7 +159,7 @@ namespace EnginelessPhysics
             _origContent = Content;
 
             Content = root;
-            canvas.Loaded += (s, e) => GameManager.LoadScene(3);
+            canvas.Loaded += (s, e) => GameManager.LoadScene(0);
 
             CompositionTarget.Rendering += UpdateScreen;
         }
