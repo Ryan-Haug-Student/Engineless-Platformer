@@ -13,7 +13,7 @@ Since i've started software / game development, I really have enjoyed system des
     * To load into the game simply press the play button on the main menu, pressing esc will return you to the main menu, and pressing "P" will pause the physics
 
 # WriteableBitmapEX
-- I used this nuGet package to build my map visuals, its a simple  package that allows for drawing to bitmaps far easier with features such as fillRect, Bilt (drawing a bitmap over another); Simply put, this package allows for easy writeableBitmap usage instead of drawing pixel by pixel
+- I used this nuGet package to build my map visuals, its a simple  package that allows for drawing to bitmaps far easier with features such as fillRect, Bilt (drawing a bitmap over another); Simply put, this package allows for easy writeableBitmap usage instead of drawing pixel by pixel.
 <a>Please Check out their GitHub [here](https://github.com/reneschulte/WriteableBitmapEx)</a>
 
 ---
