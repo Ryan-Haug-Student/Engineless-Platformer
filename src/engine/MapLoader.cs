@@ -13,8 +13,20 @@ namespace EnginelessPhysics.src.engine
     public class MapLoader
     {
         private static BitmapImage cloud = new BitmapImage(new Uri("src/game/sprites/ground/cloud.png", UriKind.Relative));
+        static WriteableBitmap cloudWB = new WriteableBitmap(cloud);
         public static void LoadMap(int toLoad)
         {
+            // remove any remaining bitmaps from the canvas to ensure that gc can run
+            for (int i = MainWindow.canvas.Children.Count - 1; i >= 0; i--)
+            {
+                if (MainWindow.canvas.Children[i] is Image img && img.Source is WriteableBitmap)
+                {
+                    MainWindow.canvas.Children.RemoveAt(i);
+                }
+            }
+
+            GameManager.ClearScene();
+
             int windowHeight = (int)MainWindow.canvas.ActualHeight;
             int windowWidth = (int)MainWindow.canvas.ActualWidth;
 
@@ -127,9 +139,9 @@ namespace EnginelessPhysics.src.engine
 
                         // if its air above y level 6, give a 1/75 chance to draw a cloud
                         if (new Random().Next(0, 75) == 1 && y < 6)
-                            bitmap.Blit(new Rect(x1, y1, x2 - x1, y2 - y2),
-                                new WriteableBitmap(cloud),
-                                new Rect(0, 0, 8, 16),
+                            bitmap.Blit(new Rect(x1, y1, x2 - x1, y2 - y1),
+                                cloudWB,
+                                new Rect(0, 0, 16, 16),
                                 WriteableBitmapExtensions.BlendMode.Alpha);
                     }
                 }
