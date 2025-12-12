@@ -153,33 +153,82 @@ namespace EnginelessPhysics.src.engine.entities
         private void CheckForGrapple()
         {
             if (!targeted)
+            {
+                // find closest point inside distance
+                Vector2 bestTarget = Vector2.Zero;
+                float bestDist = float.MaxValue;
+
                 foreach (Vector2 p in WorldData.grapplePoints)
                 {
-                    if (Vector2.Distance(p, position) < grappleDistance)
-                    {   //push the creation to UI thread
-                        MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            target = new Target(p, WorldData.tileScale / 2);
-                            MainWindow.canvas.Children.Add(target.sprite);
-                            target.Draw();
-                        }));
-
-                        targetedPoint = p;
-                        targeted = true;
-                        break;
+                    float d = Vector2.Distance(p, position);
+                    if (d < grappleDistance && d < bestDist)
+                    {
+                        bestDist = d;
+                        bestTarget = p;
                     }
                 }
-            else if (Vector2.Distance(targetedPoint, position) > grappleDistance && targetedPoint != Vector2.Zero)
-            {   //push the deletion to UI thread
-                MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
+
+                if (bestTarget != Vector2.Zero)
                 {
+                    MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        target = new Target(bestTarget, WorldData.tileScale / 2);
+                        MainWindow.canvas.Children.Add(target.sprite);
+                        target.Draw();
+                    }));
+
+                    targetedPoint = bestTarget;
+                    targeted = true;
+                }
+            }
+
+            else
+            {
+                // if we already have a target, check if a closer one exists
+                Vector2 best = Vector2.Zero;
+                float bestDist = float.MaxValue;
+
+                foreach (Vector2 p in WorldData.grapplePoints)
+                {
+                    float d = Vector2.Distance(p, position);
+                    if (d < grappleDistance && d < bestDist)
+                    {
+                        bestDist = d;
+                        best = p;
+                    }
+                }
+
+                // no points in range then remove old
+                if (best == Vector2.Zero)
+                {
+                    MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
+                    {
 #pragma warning disable CS8602
-                    target.Destroy();
-                }));
-                targetedPoint = Vector2.Zero;
-                targeted = false;
+                        target.Destroy();
+                    }));
+                    targetedPoint = Vector2.Zero;
+                    targeted = false;
+                    return;
+                }
+
+                // a different point is closer then switch target
+                if (best != targetedPoint)
+                {
+                    MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+#pragma warning disable CS8602
+                        target.Destroy();
+
+                        target = new Target(best, WorldData.tileScale / 2);
+                        MainWindow.canvas.Children.Add(target.sprite);
+                        target.Draw();
+                    }));
+
+                    targetedPoint = best;
+                }
             }
         }
+
 
         private void Grapple()
         {
@@ -193,8 +242,8 @@ namespace EnginelessPhysics.src.engine.entities
             int newAnim;
 
             if (velocity.Y > 0) newAnim = 1;        // falling
-            else if (velocity.X != 0) newAnim = 2;   // walking
-            else newAnim = 0;                        // idle
+            else if (velocity.X != 0) newAnim = 2;  // walking
+            else newAnim = 0;                       // idle
 
             if (newAnim != currentAnim)
             {
