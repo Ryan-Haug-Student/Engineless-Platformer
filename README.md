@@ -4,7 +4,7 @@ Since i've started software / game development, I really have enjoyed system des
 # How to build / play
 * ## To Build
     * Ensure you have .NET version 8 installed
-    * Then build and a window should appear with the main menu
+    * Then build from visual studio and a window should appear with the main menu
 
 * ## To Play
     * The controls to play the game are, "A" and "D" to walk forward and backward
