@@ -27,6 +27,8 @@ namespace EnginelessPhysics.src.game
                     LoadScene(currentLevel + 1);
                     UpdateUI();
                 }));
+            else
+                MainWindow.LoadWinMenu();
         }
 
         public static void LoadScene(int toLoad)

@@ -28,6 +28,8 @@ namespace EnginelessPhysics
         public static GameCanvas uiCanvas = new GameCanvas();
         private static Grid root = new Grid();
 
+        private static GameCanvas WinMenu = new GameCanvas();
+
         public static TranslateTransform cameraTransform = new TranslateTransform();
 
         // Use a stopwatch instead of datetime now for smaller values (faster hopefully)
@@ -53,6 +55,13 @@ namespace EnginelessPhysics
             //create a grid to overlay the gamecanvas and uicanvas to keep UI onscreen
             root.Children.Add(canvas);
             root.Children.Add(uiCanvas);
+
+            WinMenu.Children.Add(new TextBlock
+            {
+                Text = "You win!!!",
+                Padding = new Thickness(100, 100, 0, 0),
+                FontSize = 120,
+            });
 
             StartPhysics();
         }
@@ -123,6 +132,19 @@ namespace EnginelessPhysics
                 if (_origContent != null)
                     ((MainWindow)Application.Current.MainWindow).Content = _origContent;
             });
+        }
+
+        public static async void LoadWinMenu()
+        {
+            await Application.Current.Dispatcher.BeginInvoke(() =>
+            {
+                GameManager.ClearScene();
+                ((MainWindow)Application.Current.MainWindow).Content = WinMenu;
+            });
+
+            await Task.Delay(5000);
+
+            LoadMainMenu();
         }
 
         //functions from XAML
