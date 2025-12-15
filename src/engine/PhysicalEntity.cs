@@ -133,8 +133,10 @@ namespace EnginelessPhysics.src.engine
 
         public virtual void Destroy()
         {
-            MainWindow.canvas.Children.Remove(sprite);
-            WorldData.entities.Remove(this);
+            MainWindow.canvas.Dispatcher.BeginInvoke(new Action(() => {
+                MainWindow.canvas.Children.Remove(sprite);
+                WorldData.entities.Remove(this);
+            }));
         }
     }
 }
