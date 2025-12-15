@@ -15,9 +15,9 @@ namespace EnginelessPhysics.src.game
         public static int currencyCount = 0;
 
         // UI components
-        public static TextBlock currencyDisp = new TextBlock { };
-        public static TextBlock livesDisp = new TextBlock { };
-        public static TextBlock levelDisp = new TextBlock { };
+        public static TextBlock currencyDisp = new TextBlock { FontSize = 32 };
+        public static TextBlock livesDisp = new TextBlock { FontSize = 32 };
+        public static TextBlock levelDisp = new TextBlock { FontSize = 32 };
 
         public static void LevelCompleted()
         {
@@ -89,9 +89,9 @@ namespace EnginelessPhysics.src.game
 
         public static void UpdateUI()
         {
-            currencyDisp.Text = $"time - {currencyCount}";
-            levelDisp.Text = $"level - {currentLevel}";
-            livesDisp.Text = $"lives - {MainWindow.player.lives}";
+            currencyDisp.Text = $"Score - {currencyCount}";
+            levelDisp.Text = $"Level - {currentLevel}";
+            livesDisp.Text = $"Lives - {MainWindow.player.lives}";
         }
     }
 }

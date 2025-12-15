@@ -61,6 +61,10 @@ namespace EnginelessPhysics.src.engine
 
         private void CheckCollisions(double deltaTime)
         {
+            //if static then no collisions
+            if (velocity == Vector2.Zero)
+                return;
+
             //check for collisions with **static** entities
             Vector2 futurePos = position + velocity * (float)deltaTime;
             foreach (var entity in WorldData.staticEntities)

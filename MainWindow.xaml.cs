@@ -107,7 +107,7 @@ namespace EnginelessPhysics
                             accumulator -= fixedDt;
                         }
 
-                        await Task.Delay(1);
+                        await Task.Yield();
                     }
                 }
             });
@@ -169,7 +169,7 @@ namespace EnginelessPhysics
         {
 #pragma warning disable CS8602
             gameTimer.Stop(); gameTimer.Reset();
-
+            CompositionTarget.Rendering -= UpdateScreen;
             physicsRunning = false;
         }
 
