@@ -34,5 +34,21 @@ To make sprite loading simple for the map I decided to use a tile system. This i
 * ## World Data
 Because dynamic entities run on a seperate thread for physics, and needing to access certain data that exsists on another thread, I use a world data class to store some data, allowing it to be accessed from any thread.
 
-* #### Misc Features
-I have lots of little gameplay features added, like a animator for sprites, grappling hook for the player, and much more in the project. Please go check them out, I spent a lot of time with this project, everything listed here is just the begining. :)
+* ## Sprites and Animation
+I made a animator for some physical sprites,
+    - General sprites without animation use a bitMapImage / CroppedBitMapImage to store the sprite, the sprite is then drawn by setting the shape fill to a new imageBrush of the bitmap.
+    - Animated objects create a animator component, and take in a bitmapimage, aswell as other general parameters, the animator will then iterate through the bitmapimage taking a cropped bitmapimage for the sprite based on the iteration.
+    (I also use the animator play as a ASYNC function for accurate timing, and a CancellationTokenSource to be able to stop the animation part way through)
+
+---
+
+# Game Design Choices
+* ## Game Overview
+While the focus of this project wasnt on the game itself, it still is a major component. the game is a fairly simple platformer with a grappling hook mechanic.
+
+* ## Story and Setting
+The story and lore behind everything is that you, the player, are a wisp in a fantasy world. A warlock / evil wizard, broke the fabric of time and came from the future, bringing fragments of time, and objects from the future to your reality. The goal is to bring those fragments back to where they belong by collecting fragments of time and avoiding the roombas.
+
+* ## Art and UI
+ - I made all of the art in my freetime, I really like the fantasy pixel art genre which inspiried all the art in my project. my only regret is that I made the player first at the beginning of the school year in 32x, and all the other sprites are 16x...
+ - The UI isnt meant to look amazing or be super immersive, just fucntional, hence why everything is just the default buttons or the basic text 
