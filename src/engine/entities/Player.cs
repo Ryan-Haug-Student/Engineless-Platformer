@@ -54,12 +54,13 @@ namespace EnginelessPhysics.src.engine.entities
             spawnPos = Pos;
             previousPosition = position;
 
+            linearFriction = .86f;
+
             animator = new Animator(this, new Vector2(32, 48));
         }
 
         public override void update(double deltaTime)
         {
-            linearFriction = .86f;
             base.update(deltaTime);
 
             Move(deltaTime);
