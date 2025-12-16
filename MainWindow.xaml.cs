@@ -180,6 +180,7 @@ namespace EnginelessPhysics
         private void StartButtonClicked(object sender, RoutedEventArgs e)
         {
             _origContent = Content;
+            GameManager.currencyCount = 0;
 
             Content = root;
             canvas.Loaded += (s, e) => GameManager.LoadScene(0);

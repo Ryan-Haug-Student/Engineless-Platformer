@@ -22,8 +22,10 @@ namespace EnginelessPhysics.src.engine
 
         public virtual void Destroy()
         {
-            MainWindow.canvas.Children.Remove(sprite);
-            WorldData.staticEntities.Remove(this);
+            MainWindow.canvas.Dispatcher.Invoke(() => {
+                MainWindow.canvas.Children.Remove(sprite);
+                WorldData.staticEntities.Remove(this);
+            });
         }
     }
 }
