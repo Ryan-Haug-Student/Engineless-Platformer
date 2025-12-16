@@ -44,7 +44,7 @@ I made a animator for some physical sprites,
 
 # Game Design Choices
 * ## Game Overview
-While the focus of this project wasnt on the game itself, it still is a major component. the game is a fairly simple platformer with a grappling hook mechanic.
+While the focus of this project wasnt on the game itself, it still is a major component. the game is a fairly simple platformer with a grappling hook mechanic. featuring 3 levels and 1 "tutorial"
 
 * ## Story and Setting
 The story and lore behind everything is that you, the player, are a wisp in a fantasy world. A warlock / evil wizard, broke the fabric of time and came from the future, bringing fragments of time, and objects from the future to your reality. The goal is to bring those fragments back to where they belong by collecting fragments of time and avoiding the roombas.

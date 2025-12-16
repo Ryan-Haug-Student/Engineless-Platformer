@@ -46,7 +46,7 @@ namespace EnginelessPhysics
         public MainWindow()
         {
             InitializeComponent();
-            Title = "physics now?????";
+            Title = "Engineless Platformer!";
 
             // Global pixel-art settings
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
@@ -61,6 +61,7 @@ namespace EnginelessPhysics
                 Text = "You win!!!",
                 Padding = new Thickness(100, 100, 0, 0),
                 FontSize = 120,
+                FontFamily = new FontFamily("MV Boli")
             });
 
             StartPhysics();

@@ -12,9 +12,10 @@
         SnapsToDevicePixels="True"
         >
     <Grid>
-        <TextBlock Text="NO ENGINE GAME????" FontSize="32" Margin="336,116,298,292" />
-        <Button x:Name="StartButton" Content="Start" Margin="362,237,324,237" Click="StartButtonClicked"/>
+        <TextBlock Text="Engineless Platformer" FontSize="32" Margin="337,95,233,313" FontFamily="MV Boli" />
+        <Button x:Name="StartButton" Content="Start" Margin="362,237,324,237" Click="StartButtonClicked" FontSize="20"/>
         <Button x:Name="QuitButton" Content="Quit" Margin="380,334,342,141" Click="QuitButtonClicked"/>
+        <TextBlock Text="Made by Ryan Haug" FontSize="20" Margin="406,132,324,311" FontFamily="MV Boli" />
 
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using EnginelessPhysics.src.engine.entities;
 using System.Numerics;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace EnginelessPhysics.src.game
 {
@@ -15,9 +16,9 @@ namespace EnginelessPhysics.src.game
         public static int currencyCount = 0;
 
         // UI components
-        public static TextBlock currencyDisp = new TextBlock { FontSize = 32 };
-        public static TextBlock livesDisp = new TextBlock { FontSize = 32 };
-        public static TextBlock levelDisp = new TextBlock { FontSize = 32 };
+        public static TextBlock currencyDisp = new TextBlock { FontSize = 32, FontFamily = new FontFamily("MV Boli") };
+        public static TextBlock livesDisp = new TextBlock { FontSize = 32, FontFamily = new FontFamily("MV Boli") };
+        public static TextBlock levelDisp = new TextBlock { FontSize = 20, FontFamily = new FontFamily("MV Boli") };
 
         public static void LevelCompleted()
         {
@@ -74,16 +75,16 @@ namespace EnginelessPhysics.src.game
         {
             UpdateUI();
 
-            Canvas.SetLeft(currencyDisp, 10);
+            Canvas.SetLeft(currencyDisp, 775);
             Canvas.SetTop(currencyDisp, 10);
             MainWindow.uiCanvas.Children.Add(currencyDisp);
 
-            Canvas.SetLeft(levelDisp, 10);
-            Canvas.SetTop(levelDisp, 50);
+            Canvas.SetLeft(levelDisp, 435);
+            Canvas.SetTop(levelDisp, 10);
             MainWindow.uiCanvas.Children.Add(levelDisp);
 
             Canvas.SetLeft(livesDisp, 10);
-            Canvas.SetTop(livesDisp, 90);
+            Canvas.SetTop(livesDisp, 10);
             MainWindow.uiCanvas.Children.Add(livesDisp);
         }
 
