@@ -1,7 +1,6 @@
 ﻿using EnginelessPhysics.src.engine.Components;
 using EnginelessPhysics.src.engine.Entities;
 using EnginelessPhysics.src.game;
-using System.ComponentModel;
 using System.Numerics;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,7 +13,7 @@ namespace EnginelessPhysics.src.engine.entities
     public class Player : PhysicalEntity
     {
         //stats
-        public float playerSpeed = 180f;
+        public float playerSpeed = 190f;
         public float jumpForce = 65f;
 
         public float lives = 4f;
@@ -56,7 +55,6 @@ namespace EnginelessPhysics.src.engine.entities
             previousPosition = position;
 
             animator = new Animator(this, new Vector2(32, 48));
-            
         }
 
         public override void update(double deltaTime)
@@ -97,9 +95,9 @@ namespace EnginelessPhysics.src.engine.entities
                         GameManager.UpdateUI();
                     });
                 }
-                else 
-                { GameManager.currencyCount = 0;  MainWindow.LoadMainMenu(); }
-                    
+                else
+                { GameManager.currencyCount = 0; MainWindow.LoadMainMenu(); }
+
         }
 
         //player input, using bools to keep smooth and continous movement even if opposite key is pressed
@@ -107,11 +105,11 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.Space: 
-                    case Key.W: jumpPressed = true; break;
+                case Key.Space:
+                case Key.W: jumpPressed = true; break;
 
-                case Key.LeftShift: 
-                    case Key.E: grapplePressed = true; break;
+                case Key.LeftShift:
+                case Key.E: grapplePressed = true; break;
 
                 case Key.A: leftPressed = true; break;
                 case Key.D: rightPressed = true; break;
@@ -124,11 +122,11 @@ namespace EnginelessPhysics.src.engine.entities
         {
             switch (e.Key)
             {
-                case Key.Space: 
-                    case Key.W: jumpPressed = false; break;
+                case Key.Space:
+                case Key.W: jumpPressed = false; break;
 
                 case Key.LeftShift:
-                    case Key.E: grapplePressed = false; break;
+                case Key.E: grapplePressed = false; break;
 
                 case Key.A: leftPressed = false; break;
                 case Key.D: rightPressed = false; break;
